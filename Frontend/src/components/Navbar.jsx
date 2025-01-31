@@ -21,7 +21,7 @@ const Navbar = () => {
      {
             hamburger ?
             <div>
-            <div className='bg-[#11667A] text-white absolute w-[100%] p-2 transform transition-all duration-1000 md:hidden z-100'>
+            <div className='bg-[#11667A] text-white absolute w-[100%] p-2 md:hidden z-100'>
                 <ul>
                     <IoMdClose  className='float-end text-2xl' onClick={toggleMenu}/>
                     <li className='my-1 ml-5'><NavLink to='/' onClick={toggleMenu}>HOME</NavLink></li>
@@ -53,7 +53,7 @@ const Navbar = () => {
             <span className='text-[#11667A] font-bold'>033-71482073</span> 
         </div>
        </div>
-       <div className='flex  items-center gap-1'>
+       <div className='flex items-center gap-1'>
        <CiClock1 className='text-xl' />
         <div>
            <span className='font-bold'>WORKING HOUR</span> 

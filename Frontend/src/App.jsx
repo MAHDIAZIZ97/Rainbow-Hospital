@@ -15,6 +15,15 @@ import Doctors from './pages/Doctors';
 import Appointment from './pages/Appointment';
 import Navbar from './components/Navbar';
 import Services from './pages/Services';
+import Ipd from './pages/Services/Ipd';
+import Opd from './pages/Services/Opd';
+import Pathology from './pages/Services/Pathology';
+import Radiology from './pages/Services/Radiology';
+import Others from './pages/Services/Others';
+import Physiotherapy from './pages/Services/Physiotherapy';
+import Departments from './pages/Departments';
+
+
 
 const App = () => {
   return (
@@ -36,6 +45,18 @@ const App = () => {
         <Route path='/doctors' element={<Doctors />}/>
         <Route path='/doctors/:specialty' element={<Doctors />}/>
         <Route path='/appointment/:docId' element={<Appointment />}/>
+        <Route path='/departments' element={<Departments />}/>
+
+        {/* services */}
+        <Route path='/services/ipd' element={<Ipd />}/>
+        <Route path='/services/opd' element={<Opd />}/>
+        <Route path='/services/others' element={<Others />}/>
+        <Route path='/services/pathology' element={<Pathology />}/>
+        <Route path='/services/physiotherapy' element={<Physiotherapy />}/>
+        <Route path='/services/radiology' element={<Radiology />}/>
+
+        {/* departments */}
+
       </Routes>
     </div>
   )
