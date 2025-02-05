@@ -38,6 +38,11 @@ import General_physician from './General_physician.svg'
 import Gynecologist from './Gynecologist.svg'
 import Neurologist from './Neurologist.svg'
 import Pediatricians from './Pediatricians.svg'
+import page2 from './page2.jpg'
+import page2c from './page2c.jpg'
+import page3a from './page3a.avif'
+import page3b from './page3b.jpeg'
+import logo3 from './logo3.png'
 
 
 export const assets = {
@@ -46,7 +51,12 @@ export const assets = {
     group_profiles,
     logo,
     logoR,
+    page2,
+    page3a,
+    logo3,
+    page3b,
     hero,
+    page2c,
     chats_icon,
     verified_icon,
     info_icon,
@@ -59,7 +69,8 @@ export const assets = {
     dropdown_icon,
     upload_icon,
     stripe_logo,
-    razorpay_logo
+    razorpay_logo,
+    doc1
 }
 
 export const specialityData = [

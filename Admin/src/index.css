@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary: #11; /* Dark mode primary color */
+    --color-background: #0f172a; /* Dark mode background */
+    --color-text: #f8fafc; /* Dark mode text */
+  }

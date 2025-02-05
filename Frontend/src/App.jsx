@@ -22,6 +22,9 @@ import Radiology from './pages/Services/Radiology';
 import Others from './pages/Services/Others';
 import Physiotherapy from './pages/Services/Physiotherapy';
 import Departments from './pages/Departments';
+import Cardiology from './pages/Departments/Cardiology';
+import Footer from './components/Footer';
+import BookAppointment from './components/BookAppointment';
 
 
 
@@ -45,6 +48,7 @@ const App = () => {
         <Route path='/doctors' element={<Doctors />}/>
         <Route path='/doctors/:specialty' element={<Doctors />}/>
         <Route path='/appointment/:docId' element={<Appointment />}/>
+        <Route path='/book-appointment' element={<BookAppointment />}/>
         <Route path='/departments' element={<Departments />}/>
 
         {/* services */}
@@ -56,8 +60,34 @@ const App = () => {
         <Route path='/services/radiology' element={<Radiology />}/>
 
         {/* departments */}
+        <Route path='/departments/cardiology' element={<Cardiology />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments' element={<Departments />}/>
 
       </Routes>
+      <Footer />
     </div>
   )
 }
