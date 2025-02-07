@@ -41,6 +41,8 @@ const App = () => {
         <Route path='/doctor-list' element= {<DoctorList />}/>
         <Route path='/health-package-list' element= {<HealthPackageList />}/>
         <Route path='/ot-package-list' element= {<OtPackageList />}/>
+        <Route path='/add-notice' element= {<HealthPackageList />}/>
+        <Route path='/notice-list' element= {<OtPackageList />}/>
       </Routes>
     </div>
   ): (

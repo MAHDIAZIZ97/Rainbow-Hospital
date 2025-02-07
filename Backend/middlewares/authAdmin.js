@@ -8,7 +8,7 @@ const authAdmin = async (req, res, next) => {
             return res.status(401).json({success: false, message: 'Not properly authenticated'});
         }
         
-        const decoded = jwt.verify(atoken, process.env.ADMIN_SECRET_KEY);
+        const decoded = jwt.verify(atoken, process.env.JWT_SECRET);
 
         if(decoded !== process.env.ADMIN_EMAIL + process.env.ADMIN_PASSWORD) {
             return res.status(401).json({success: false, message: 'Not properly authenticated'});

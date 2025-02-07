@@ -16,7 +16,10 @@ export default function NoticeBar() {
     </div>
     <div className="w-full bg-yellow-500 text-black py-2 overflow-hidden ">
       
-      <div className={`whitespace-nowrap flex gap-8 ${isPaused ? "animate-none cursor-pointer" : "animate-marquee"}`}>
+    <div
+      className={`whitespace-nowrap flex gap-8 animate-marquee`}
+         style={{ animationPlayState: isPaused ? "paused" : "running", cursor: "pointer" }}
+        >
         <p className="text-sm sm:text-base font-bold">
           📢 Important Notice: Rainbow Hospital is always ready to serve you at your worst.
         </p>
@@ -24,7 +27,7 @@ export default function NoticeBar() {
           🏥 Book your appointment online for quick service!
         </p>
         <p className="text-sm sm:text-base font-bold">
-          💉 Free health check-up camp on 10th Feb!
+          🥼 Download daily doctor list.
         </p>
         </div>
         </div>
