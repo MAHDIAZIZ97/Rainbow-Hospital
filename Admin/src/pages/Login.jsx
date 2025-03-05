@@ -33,12 +33,12 @@ const Login = () => {
            }
         }
         else{
-
+          toast.error('Invalid Credentials');
         }
       } catch (error) {
-        
+         toast.error('Invalid Credentials');
       }
-      }
+    }
    
 
   
@@ -52,7 +52,6 @@ const Login = () => {
               {state}
               </span>    Login
              </div>
-            
             <div>
               <p className='text-[0.8rem] mt-2'>Email:</p>
               <input type="text" onChange={(e) => setEmail(e.target.value)}  value={email}  required className='border border-[#DADADA] rounded w-80 p-2 mt-1 text-sm text-gray-800 outline-1 '/>

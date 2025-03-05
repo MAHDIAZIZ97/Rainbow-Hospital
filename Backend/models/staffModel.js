@@ -2,20 +2,26 @@ import mongoose from 'mongoose';
 
 
 const staffSchema = new mongoose.Schema({
-    name: {
+    staffName: {
         type: String,
         required: true
     },
-    email: {
+    staffEmail: {
+        type: String,
+        required: true,
+        default: '',
+        unique: true
+    },
+    staffId: {
         type: String,
         required: true,
         unique: true
     },
-    image: {
+    staffImage: {
         type: String,
         required: true
     },
-    password: {
+    staffPassword: {
         type: String,
         required: true
     },

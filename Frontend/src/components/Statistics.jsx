@@ -3,11 +3,11 @@ import React, { useState, useEffect } from "react";
 export default function Statistics() {
   const [patients, setPatients] = useState(0);
   const [doctors, setDoctors] = useState(0);
-  const [appointments, setAppointments] = useState(0);
+  const [totalBeds,setTotalBeds] = useState(0);
 
   const patientCount = 300; 
   const doctorCount = 150; 
-  const appointmentCount = 100; 
+  const totalBedsCount = 100; 
 
   useEffect(() => {
     const animateCount = (target, setter) => {
@@ -24,14 +24,14 @@ export default function Statistics() {
     };
     animateCount(patientCount, setPatients);
     animateCount(doctorCount, setDoctors);
-    animateCount(appointmentCount, setAppointments);
+    animateCount(totalBedsCount, setTotalBeds);
   }, []);
 
   return (
     <div className="flex md:flex-row  flex-col justify-around p-8 bg-gray-100 rounded-lg shadow-md">
       <div className="text-center">
       <h3 className="text-2xl font-semibold">Total Beds</h3>
-      <p className="text-4xl font-bold text-orange-600">{appointments}+</p>
+      <p className="text-4xl font-bold text-orange-600">{totalBeds}+</p>
       </div>
       <div className="text-center">
       

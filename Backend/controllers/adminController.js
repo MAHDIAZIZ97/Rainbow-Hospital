@@ -3,22 +3,24 @@ import bcrypt from 'bcrypt';
 import {v2 as cloudinary} from 'cloudinary';
 import staffModel from '../models/StaffModel.js';
 import doctorModel from '../models/doctorModel.js';
+import healthPackageModel from '../models/healthPackageModel.js';
 import jwt from 'jsonwebtoken';
+import otPackageModel from '../models/otPackageModel.js';
 
 
 // api for adding doctor
 
 const addDoctor = async (req,res) =>{
     try {
-        const  {name,speciality, degree, experience } = req.body;
-        const imageFile = req.file;
+        const  {name,speciality, degree, experience,available,availableDays } = req.body;
+        const image = req.file;
 
-       if(!name || !speciality || !degree || !experience || !imageFile){
+       if(!name || !speciality || !degree || !experience || !image || !availableDays  ){
            return res.status(400).json({message: 'All fields are required'});
        }
 
     //    upload image
-    const imageUpload = await cloudinary.uploader.upload(imageFile.path, {resource_type: 'image'});
+    const imageUpload = await cloudinary.uploader.upload(image.path, {resource_type: 'image'});
     const imageUrl = imageUpload.secure_url;
 
     // save to database
@@ -28,7 +30,8 @@ const addDoctor = async (req,res) =>{
         degree,
         experience,
         image: imageUrl,
-        date: Date.now(),
+        available,
+        availableDays,
     });
 
     await doctorData.save();
@@ -41,48 +44,118 @@ const addDoctor = async (req,res) =>{
 }
 
 
-
-
-
 // adding staff api
 const addStaff = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { staffName, staffEmail, staffPassword,staffId } = req.body;
         const imageFile = req.file;
+        //console.log("File Path Before Upload:", imageFile.path);
 
-        if (!name || !email || !password || !imageFile) {
+        // Validate required fields
+        if (!staffName || !staffEmail  || !staffPassword || !staffId || !imageFile) {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
-        // Validate password
-        if (password.length < 8 || !validator.isStrongPassword(password)) {
+        // Validate email uniqueness
+        const existingStaff = await staffModel.findOne({ staffEmail });
+        if (existingStaff) {
+            return res.status(400).json({ message: 'Email already exists' });
+        }
+
+        // Validate password strength
+        if (staffPassword.length < 8 ) {
             return res.status(400).json({ message: 'Please enter a strong password' });
-        } 
+        }
 
         // Hash password properly
-        const salt = await bcrypt.genSalt(10);  // Await is needed here
-        const hashedPassword = await bcrypt.hash(password, salt);
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(staffPassword, salt);
 
-        // Upload image
-        const imageUpload = await cloudinary.uploader.upload(imageFile.path, { resource_type: 'image' });
+        // Upload image to Cloudinary
+        const imageUpload = await cloudinary.uploader.upload(imageFile.path, {
+            resource_type: 'image',
+            folder: "staff_images",  // Optional: Store images in a folder
+        });
+
+        // Store URL of the uploaded image
         const imageUrl = imageUpload.secure_url;
 
-        // Save to database
+        // Save staff data to database
         const staffData = new staffModel({
-            name,
-            email,
-            password: hashedPassword,
-            image: imageUrl,
-            date: Date.now(),
+            staffName,
+            staffEmail,
+            staffId,
+            staffPassword: hashedPassword,
+            staffImage: imageUrl,
         });
 
         await staffData.save();
         res.json({ success: true, message: 'Staff added successfully' });
 
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        console.error("Error adding staff:", error); // Debugging log
+        res.json({ success: false, message: error.message });
     }
 };
+
+
+
+// api for adding health package
+
+const addHealthPackage = async (req,res) => {
+     try{
+          const {name, originalPrice, discountedPrice, description,remarks} = req.body;
+        //   validation
+        if( !name || !originalPrice || !discountedPrice || !description){
+             return res.status(400).json({message: 'All fields are required'});
+        }
+        const healthPackageData = new healthPackageModel({
+             name,
+             originalPrice,
+             discountedPrice,
+             description,
+             remarks,
+        });
+
+        await healthPackageData.save();
+        res.status(200).json({success:true,message: 'Health package added successfully'});
+
+
+     }
+     catch(error){
+         res.status(500).json({success:false,message: error.message});
+     }
+}
+
+// api for adding ot  packages
+
+const addOtPackage = async (req,res) => {
+    try{
+        const {name, price, department, remarks} = req.body;
+        //   validation
+        if(!name ||!price ||!department){
+             return res.status(400).json({message: 'All fields are required'});
+        }
+        const otPackageData = new otPackageModel({
+             name,
+             price,
+             department,
+             remarks,
+        });
+
+        await otPackageData.save();
+        res.status(200).json({success:true,message: 'Ot package added successfully'});
+     }
+     catch(error){
+         res.status(500).json({success:false,message: error.message});
+     }
+}
+
+// api for patient booking from patient portal (userendPanel)
+
+const bookAppointment = async (req,res) => {
+    
+}
 
 // api for admin login
 
@@ -102,4 +175,51 @@ const adminLogin = async (req,res) =>{
     }
 }
 
-export {addStaff,addDoctor,adminLogin};
+
+// get all staff members
+const allStaff = async (req,res) =>{
+    try {
+        const staffs = await staffModel.find({}).select('-staffPassword');
+        res.json({success:true,staffs});   
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({success:false,message: error.message});
+    }
+}
+
+//get all doctors
+
+const allDoctors= async (req, res) => {
+    try {
+        const doctors = await doctorModel.find({});
+        res.json({success:true,doctors});
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({success:false,message: error.message});
+    }
+}
+
+// edit all staff members
+// const updateStaff = async (req,res) =>{
+//     try {
+//         const id = req.params.id;
+//         const staffExist = await staffModel.findById({_id:id});
+//         if(!staffExist){
+//             res.status(404).json({success:false,message: 'Staff not found'});
+//         }
+//        const updateStaff  = await staffModel.findByIdAndUpdate(id, req.body, {new:true});
+//        res.status(201).json({success:true, message:"user updated successfully",updateStaff});
+//     }catch (error) {
+//         console.log(error.message);
+//         res.status(500).json({success:false,message: error.message});
+//     }
+// }
+export {
+    addStaff,
+    addDoctor,
+    adminLogin,
+    allStaff,
+    allDoctors,
+    addHealthPackage,
+    addOtPackage
+};

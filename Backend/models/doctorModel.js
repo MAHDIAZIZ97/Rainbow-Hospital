@@ -22,12 +22,16 @@ const doctorSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    availableDays: {
+        type: String,
+        required: true
+    },
     available: {
         type: Boolean,
         required: true,
         default: true
     },
-},{minimize: false});
+},{timestamps: true});
 
 
 const doctorModel = mongoose.models.doctorModel || mongoose.model('doctors', doctorSchema);
