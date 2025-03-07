@@ -11,6 +11,7 @@ const adminContextProvider  = (props) => {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [staffs,setStaffs] = useState([]);
     const [doctors,setDoctors] = useState([]);
+    const [notices, setNotices] = useState([]);
     
     //console.log(backendUrl); // for testing backendUrl
     const getAllStaffs = async () =>{
@@ -35,7 +36,6 @@ const adminContextProvider  = (props) => {
             const { data } = await axios.post(backendUrl + '/api/admin/all-doctors',{}, {headers: {aToken}});
             if(data.success){
                 setDoctors(data.doctors); //doctors is the name of the collection as well as state variable
-                // console.log(data.doctors);
             }
             else{
                 toast.error(data.message);
@@ -46,11 +46,29 @@ const adminContextProvider  = (props) => {
         }
     }
 
+    const getAllNotices = async () => {
+            try {
+                const { data } = await axios.post(backendUrl + '/api/admin/all-notices', {headers: {aToken}});
+                if(data.success){
+                    setNotices(data.notices); //notices is the name of the collection as well as state variable
+                    // console.log(data.notices);
+                }
+                else{
+                    toast.error(data.message);
+                }
+                
+            } catch (error) {
+                console.log(error.message);
+                toast.error("Failed to get notices");
+            }
+    }
+
     const value = {
         aToken,setAToken,
         backendUrl,
         staffs,getAllStaffs,
-        doctors,getAllDoctors
+        doctors,getAllDoctors,
+        notices,getAllNotices
     };
 
     // console.log(value);

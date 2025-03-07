@@ -142,8 +142,9 @@ const AddDoctor = () => {
           <label htmlFor='availableDays'>Available On:</label>
           <select className='  mx-2 my-2 w-59 h-6 outline-1 outline-blue-600'
              value={availableDays}
-              onChange={(e) => setAvailableDays(e.target.value)}
+             onChange={(e) => setAvailableDays(e.target.value)}
           >
+            <option value=''>Select Day</option>
             <option id='availableDays' name='availableDays' value='Sunday'>Sunday</option>
             <option id='availableDays' name='availableDays' value='Monday'>Monday</option>
             <option id='availableDays' name='availableDays' value='Tuesday'>Tuesday</option>

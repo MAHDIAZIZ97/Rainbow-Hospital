@@ -3,7 +3,7 @@ import React from 'react'
 const Cardiology = () => {
   return (
     <div>
-      Cardiology
+      Department of Cardiology
     </div>
   )
 }

@@ -1,16 +1,17 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
-export const staffContext = createContext();
+export const StaffContext = createContext();
 
 const StaffContextProvider = (props) => {
+    const [sToken,setSToken] = useState(localStorage.getItem(sToken)? localStorage.getItem(setSToken):'');
     const value = {
 
     };
     
     return (
-        <staffContext.Provider value={value}>
+        <StaffContext.Provider value={value}>
               {props.children}
-        </staffContext.Provider>
+        </StaffContext.Provider>
     );
 }
 

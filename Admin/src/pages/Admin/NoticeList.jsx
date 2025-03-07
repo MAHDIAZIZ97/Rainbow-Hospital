@@ -1,18 +1,40 @@
-import React from 'react'
+import React from 'react';
+import { useContext,useEffect } from 'react';
+import { adminContext } from '../../context/AdminContext';
 
 const NoticeList = () => {
+
+  const {notices,aToken, getAllNotices} = useContext(adminContext);
+
+
+  useEffect(() => {
+    if(aToken){
+      getAllNotices();
+    }
+  } , [aToken]);
+
+
   return (
     <div>
-    <h3>Available Notices:</h3>
-        {notices.map((notice) => (
-            <div key={notice.id} style={{ border: "1px solid black", padding: "10px", marginBottom: "10px" }}>
-                <h4>{notice.noticeName}</h4> {/* Display label */}
-                <p>{notice.fileName}</p>
-                <iframe src={`data:application/pdf;base64,${notice.fileData}`} width="400" height="500"></iframe>
-                <br />
-                <button onClick={() => handleDelete(notice.id)}>Delete</button>
-            </div>
-        ))}
+        <h1 className="text-semibold text-4xl ml-5 my-3 text-[#035d68] uppercase">All Notices</h1>
+        <table className='table-auto min-w-200'>
+            <thead className='bg-gray-200 border-1 '>
+                <tr >
+                    <th className='border-1'>Notice Name</th>
+                    <th className='border-1'>File</th>
+                </tr>
+            </thead>
+            <tbody>
+            {
+              notices.map((notice,index) => (
+                <tr key={index}>
+                  <td className='border-1 pl-5 py-2'>{notice.name}</td>
+                  <td className='border-1 pl-5 py-2'><a href="#">{notice.file}</a></td>
+                </tr>
+              ))
+            }
+            </tbody>
+        </table>
         </div>
   )
 }

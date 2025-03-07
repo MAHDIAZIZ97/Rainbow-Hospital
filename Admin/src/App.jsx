@@ -19,6 +19,7 @@ import AddNotice from './pages/Admin/AddNotice';
 import { CgMenuRightAlt } from "react-icons/cg";
 import ChangePassword from './pages/Admin/ChangePassword';
 import NotFound from './pages/NotFound';
+import NoticeList from './pages/Admin/NoticeList';
 
 
 const App = () => {
@@ -45,19 +46,17 @@ const App = () => {
       <Routes>
         <Route path='/' element= { <Dashboard />} />
         <Route path='/admin-dashboard' element= {<Dashboard />}/>
-        {/* <Route path='/add-daily-doc-list' element= {<AddDailyDocList />}/> */}
         <Route path='/add-doctor' element= {<AddDoctor />}/>
         <Route path='/add-health-package' element= {<AddHealthPackage />}/>
         <Route path='/add-ot-package' element= {<AddOtPackage />}/>
         <Route path='/add-staff' element= {<AddStaff />}/>
         <Route path='/all-appointments' element= {<AllAppointments />}/>
-        {/* <Route path='/daily-doc-list' element= {<DailyDocList />}/> */}
         <Route path='/doctor-list' element= {<DoctorList />}/>
         <Route path='/health-package-list' element= {<HealthPackageList />}/>
         <Route path='/ot-package-list' element= {<OtPackageList />}/>
         <Route path='/add-notice' element= {<AddNotice />}/>
         <Route path='/staff-list' element= {<StaffList />}/>
-        <Route path='/notice-list' element= {<OtPackageList />}/>
+        <Route path='/notice-list' element= {<NoticeList />}/>
         <Route path='/change-password' element= {<ChangePassword />}/>
         <Route path='*' element= {<NotFound />} />
       </Routes>

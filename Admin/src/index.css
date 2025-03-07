@@ -5,3 +5,9 @@
     --color-background: #0f172a; /* Dark mode background */
     --color-text: #f8fafc; /* Dark mode text */
   }
+
+  @dark{
+    --color-primary: #f8fafc; /* Light mode primary color */
+    --color-background: #111827; /* Light mode background */
+    --color-text: #0f172a; /* Light mode text */
+  }

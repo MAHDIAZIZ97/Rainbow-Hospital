@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes,Route } from 'react-router-dom';
+import { Routes,Route,useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
 import Academics from './pages/Academics';
@@ -25,12 +25,24 @@ import Departments from './pages/Departments';
 import Cardiology from './pages/Departments/Cardiology';
 import Footer from './components/Footer';
 import BookAppointment from './components/BookAppointment';
+import Gynecology from './pages/Departments/Gynecology';
+import Neurology from './pages/Departments/Neurology';
+import Orthopaedics from './pages/Departments/Orthopaedics';
+import NotFound from './pages/NotFound';
+
+import Testimonials from './pages/Testimonials';
 
 
 
 const App = () => {
+
+  const location = useLocation();
+
+  const hideLayoutOnRoutes = ['*'];
+  const shouldHideLayout = hideLayoutOnRoutes.includes(location.pathname);
   return (
     <div>
+    
      <Navbar />
       <Routes>
         <Route path='/' element={<Home />}/>
@@ -50,6 +62,7 @@ const App = () => {
         <Route path='/appointment/:docId' element={<Appointment />}/>
         <Route path='/book-appointment' element={<BookAppointment />}/>
         <Route path='/departments' element={<Departments />}/>
+        <Route path='/testimonials' element={<Testimonials />}/>
 
         {/* services */}
         <Route path='/services/ipd' element={<Ipd />}/>
@@ -61,6 +74,9 @@ const App = () => {
 
         {/* departments */}
         <Route path='/departments/cardiology' element={<Cardiology />}/>
+        <Route path='/departments' element={<Neurology/>}/>
+        <Route path='/departments' element={<Gynecology />}/>
+        <Route path='/departments' element={<Orthopaedics />}/>
         <Route path='/departments' element={<Departments />}/>
         <Route path='/departments' element={<Departments />}/>
         <Route path='/departments' element={<Departments />}/>
@@ -82,9 +98,7 @@ const App = () => {
         <Route path='/departments' element={<Departments />}/>
         <Route path='/departments' element={<Departments />}/>
         <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
+        {/* <Route path='*' element= {<NotFound />} /> */}
 
       </Routes>
       <Footer />

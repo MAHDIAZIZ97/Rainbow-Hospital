@@ -6,6 +6,8 @@ import doctorModel from '../models/doctorModel.js';
 import healthPackageModel from '../models/healthPackageModel.js';
 import jwt from 'jsonwebtoken';
 import otPackageModel from '../models/otPackageModel.js';
+import noticeModel from '../models/noticeModel.js';
+import fs from 'fs';
 
 
 // api for adding doctor
@@ -15,7 +17,7 @@ const addDoctor = async (req,res) =>{
         const  {name,speciality, degree, experience,available,availableDays } = req.body;
         const image = req.file;
 
-       if(!name || !speciality || !degree || !experience || !image || !availableDays  ){
+       if(!name || !speciality || !degree || !experience || !image || !availableDays || !available  ){
            return res.status(400).json({message: 'All fields are required'});
        }
 
@@ -151,6 +153,42 @@ const addOtPackage = async (req,res) => {
      }
 }
 
+// api for adding notice
+const addNotice = async (req,res) => {
+    try {
+        const {name} = req.body;
+        const file  = req.file;
+        if(!name || !file){
+            return res.status(400).json({message: 'All fields are required'});
+        }
+
+        const fileUpload = await cloudinary.uploader.upload(file.path, {resource_type: 'raw'});
+        const fileUrl = fileUpload.secure_url;
+
+        const noticeData = new noticeModel({
+            name,
+            file: fileUrl,
+        });
+
+        await noticeData.save();
+        fs.unlinkSync(file.path);
+        res.status(200).json({success:true, message: 'Notice added successfully'});
+    } catch (error) {
+        res.status(500).json({success:false,message: error.message});
+    }
+}
+
+
+// api for show notice
+const allNotices = async (req, res) => {
+    try {
+        const notices = await noticeModel.find({});
+        res.json({success:true,notices});
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({success:false,message: error.message});
+    }
+}
 // api for patient booking from patient portal (userendPanel)
 
 const bookAppointment = async (req,res) => {
@@ -221,5 +259,8 @@ export {
     allStaff,
     allDoctors,
     addHealthPackage,
-    addOtPackage
+    addOtPackage,
+    addNotice,
+    allNotices,
+    bookAppointment,
 };

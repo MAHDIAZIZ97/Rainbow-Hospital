@@ -7,8 +7,8 @@ import axios from 'axios';
 
 const AddHealthPackage = () => {
   const [name, setName] = useState('');
-  const [originalPrice, setOriginalPrice] = useState(null);
-  const [discountedPrice, setDiscountedPrice] = useState(null);
+  const [originalPrice, setOriginalPrice] = useState('');
+  const [discountedPrice, setDiscountedPrice] = useState('');
   const [description, setDescription] = useState('');
   const[remarks, setRemarks] = useState('');
 
@@ -70,7 +70,7 @@ const AddHealthPackage = () => {
               className='outline-1 outline-blue-600 mx-2 my-2 w-52'
               value={originalPrice}
               name='originalPrice'
-              onChange={(e) => setOriginalPrice(e.target.value)}
+              onChange={(e) => setOriginalPrice(Number(e.target.value))}
               />
           
           
@@ -83,7 +83,7 @@ const AddHealthPackage = () => {
               className='outline-1 outline-blue-600 mx-2 my-2 w-54'
               value={discountedPrice}
               name='discountedPrice'
-              onChange={(e) => setDiscountedPrice(e.target.value)}
+              onChange={(e) => setDiscountedPrice(Number(e.target.value))}
               />
           <label htmlFor='remarks'>Remarks(Any):</label>
           <input 

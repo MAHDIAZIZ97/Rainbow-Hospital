@@ -2,68 +2,79 @@
 import axios from 'axios';
 import React,{useState,useContext} from 'react'
 import { adminContext } from '../../context/AdminContext';
-
-
+import { toast } from 'react-toastify';
 
 const AddNotice = () => {
-  const [pdf, setPdf] = useState(null);
-  const [noticeName, setNoticeName] = useState('');
-  const [notices, setNotices] = useState([]);
 
-  const {aToken, backendUrl} = useContext(adminContext);
+const [name, setName] = useState('');
+const [file, setFile] = useState(null);
 
-  const handleUpload = async (e) => {
-     e.preventDefault();
-     if(!pdf) return alert('No file uploaded');
-      if(!noticeName) return alert('Label is required');
-      if(!aToken) return alert('Unauthorized Request');
+const {aToken, backendUrl} = useContext(adminContext);
 
-     const formData = new FormData();
-      formData.append('pdf', pdf);
-      formData.append('noticeName', setNoticeName);
+const handleFileChange = (e) => {
+     const file = e.target.files[0];
+     if(file && file.type === 'application/pdf') {
+       setFile(file);
+     } else {
+        toast.error('Please select a pdf file');
+      }
+}
 
+const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('file', file); 
 
-      const { data } = await axios.post(backendUrl + '/upload', formData);
-      setNotices([...notices, { id: Date.now(), ...data }]);
-      setNoticeName('');
-      setPdf(null);
-  }
-
-  const handleDelete = (id) => {
-    const updatedNotices = notices.filter((notice) => notice.id !== id);
-    setNotices(updatedNotices);
-};
-
-
+      // for(let a in formData) {
+      //   console.log(a[0] + ':' + a[1]);
+      // }
+      
+     const { data } =  await axios.post(`${backendUrl}/api/admin/add-notice`, formData, {headers: {aToken}});
+      if (data.success) {
+        toast.success('Notice added successfully');
+        setName('');
+        setFile(null);
+      }
+      else {
+        toast.error('Failed to add Notice');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error(error.message);
+    }
+}
+  
   return (
     <>
     <div>
-    <form className='border-1 border-blue-900 p-3 m-3 rounded-sm'
-     onSubmit={handleUpload}>
+    <form className='border-1 border-blue-90  0 p-3 m-3 rounded-sm'
+     onSubmit={submitHandler}>
       <p className='my-3 text-2xl text-[#035d67] font-semibold'>Add Notice</p>
       <div>
        
         <div>
-          <label htmlFor='staff-name'>Name:</label>
+          <label htmlFor='name'>Name:</label>
           <textarea 
               type='text' 
-              id='noticeName' required c
+              id='name' required 
               className='outline-1 outline-blue-600 mx-2 my-2 w-150'
-              value={noticeName}
-              name='noticeName'
-              onChange={(e) => setNoticeName(e.target.value)}
+              value={name}
+              name='name'
+              onChange={(e) => setName(e.target.value)}
               />
          
         </div>
         <div>
-            <label htmlFor='noticePdf'>File:</label>
+            <label htmlFor='file'>File:</label>
             <input  
                 type='file' 
-                id='noticePdf' required 
+                id='file' required 
                 className='outline-1 outline-blue-600 mx-2 my-2 w-154 cursor-pointer' 
                 accept='application/pdf'
-                name='noticePdf'
-                onChange={(e) => setPdf(e.target.files[0])}
+                name='file'
+                onChange={handleFileChange}
                 />
         </div>
         <div className='flex justify-center'>

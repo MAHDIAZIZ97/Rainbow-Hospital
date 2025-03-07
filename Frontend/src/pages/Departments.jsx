@@ -1,9 +1,16 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 const Departments = () => {
   return (
     <div>
-      our departments   
+      <h1>Departments</h1>
+      <NavLink to='/departments/cardiology'>Cardiology</NavLink>
+      <NavLink to='/departments/neurology'>Neurology</NavLink>
+      <NavLink to='/departments/gynecology'>Oncology</NavLink>
+      <NavLink to='/departments/orthopedics'>Orthopedics</NavLink>
+      
+      
     </div>
   )
 }
