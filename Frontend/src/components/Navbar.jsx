@@ -6,8 +6,8 @@ import { CiLocationOn } from "react-icons/ci";
 import { NavLink } from 'react-router-dom';
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoMdClose } from "react-icons/io";
-import { MdOutlineWbSunny } from "react-icons/md";
 import ImageWithDropdown from './ImageWithDropdown';
+import ThemeToggle from '../ThemeToggle';
 
 
 const Navbar = () => {
@@ -16,6 +16,7 @@ const Navbar = () => {
  const [isFixed, setIsFixed] = useState(false);
  const [isOpen, setIsOpen] = useState(false);
  const [isDepOpen, setIsDepOpen] = useState(false);
+ const [floatHamburger, setFloatHamburger] = useState(false);
  
 
  const toggleMenu = () => {
@@ -31,22 +32,35 @@ const Navbar = () => {
       setIsFixed(false);
     }
   };
-
   window.addEventListener("scroll", handleScroll);
   return () => window.removeEventListener("scroll", handleScroll);
 }, []);
+
+useEffect(() => {
+  const handleHamburger = () =>{
+    const scrollHamburger = window.innerHeight/5;
+    if(window.scrollY > scrollHamburger) {
+       setFloatHamburger(true); 
+    }
+    else {
+       setFloatHamburger(false);
+    }
+    window.addEventListener("scroll", handleHamburger);
+    return () => window.removeEventListener("scroll", handleHamburger);
+  }
+},[])
  
   return (
-    <>
+    <div className='dark:bg-[var(--dark-theme)]'>
 
 <nav
-      className={`px-4 py-1 w-full bg-[#035d67] text-white fixed top-0 left-0 transition-all duration-500 ${
+      className={`px-4 py-1 w-full bg-[#035d67] dark:bg-[var(--dark-theme)] text-white fixed top-0 left-0 transition-all duration-500 ${
         isFixed ? "md:shadow-lg md:opacity-100  md:translate-y-0 md:z-100 hidden md:block" : "opacity-0 -translate-y-10"
       }`}
     >
       <div className="container mx-auto flex justify-between items-center pl-18">
-      <div className='bg-[#035d67] py-0 text-white flex gap-[30%]'>
-       <div className='justify-start align-center pt-1  border-0 gap-3 hidden md:flex'>
+      <div className='bg-[#035d67] dark:bg-[var(--dark-theme)] py-0 text-white flex gap-[30%]'>
+       <div className='justify-start align-center  border-0 gap-3 hidden md:flex'>
         <img src={assets.logo3} alt='hospital-logo' className='max-h-[3rem] ml-2' />
        <NavLink 
           to='/'
@@ -59,33 +73,13 @@ const Navbar = () => {
               mt-2 ">
             ABOUT
         </NavLink>
-        <div 
-      className="relative inline-block"
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
-    >
+      
       {/* Button / Trigger */}
-      <button className=" text-white cursor-pointer hover:text-purple-300 mt-2"> 
+      <NavLink to='/patient-guide' className=" text-white cursor-pointer hover:text-purple-300 mt-2"> 
         PATIENT
-      </button>
+      </NavLink>
 
-      {/* Dropdown Menu */}
-      {isOpen && (
-        <div className="absolute -left-15 mt-2 w-48 bg-[#035d67] border border-gray-300 shadow-md  z-100 rounded">
-          <ul className="py-2">
-          <NavLink to='/patient-guide'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Patient Guide</li>
-            </NavLink>
-            <NavLink to='/testimonials'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Testimonials</li>
-            </NavLink>
-            <NavLink to='/book-appointment'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Book Appointment</li>
-            </NavLink>
-          </ul>
-        </div>
-      )}
-    </div>
+ 
         <NavLink to='/services'
          className="text-white hover:text-purple-300 transition-all duration-300 ease-in-out 
               mt-2 ">
@@ -96,105 +90,17 @@ const Navbar = () => {
               mt-2 ">
             DOCTORS
         </NavLink>
-        <div 
-      className="relative inline-block"
-      onMouseEnter={() => setIsDepOpen(true)}
-      onMouseLeave={() => setIsDepOpen(false)}
-    >
+    
+    
       {/* Button / Trigger */}
-      <button className=" text-white cursor-pointer hover:text-purple-300 mt-2"> 
+      <NavLink to='/departments' 
+        className=" text-white cursor-pointer hover:text-purple-300 mt-2"
+        > 
         DEPARTMENT
-      </button>
+      </NavLink>
 
-      {/* Dropdown Menu */}
-      {isDepOpen && (
-        <div className="absolute -left-65 mt-1 w-190 bg-[#035a67] border border-gray-300 shadow-md  z-100 rounded">
-         <div className='flex gap-2'>
-         <ul className="py-2">
-            <NavLink to='/patient-guide'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Patient Guide</li>
-            </NavLink>
-            <NavLink to='/testimonials'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Testimonials</li>
-            </NavLink>
-            <NavLink to='/book-appointment'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Book Appointment</li>
-            </NavLink>
-            <NavLink to='/patient-guide'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Patient Guide</li>
-            </NavLink>
-            <NavLink to='/testimonials'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Testimonials</li>
-            </NavLink>
-            <NavLink to='/book-appointment'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Book Appointment</li>
-            </NavLink>
-          </ul>
-          <ul className="py-2">
-            <NavLink to='/patient-guide'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Patient Guide</li>
-            </NavLink>
-            <NavLink to='/testimonials'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Testimonials</li>
-            </NavLink>
-            <NavLink to='/book-appointment'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Book Appointment</li>
-            </NavLink>
-            <NavLink to='/patient-guide'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Patient Guide</li>
-            </NavLink>
-            <NavLink to='/testimonials'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Testimonials</li>
-            </NavLink>
-            <NavLink to='/book-appointment'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Book Appointment</li>
-            </NavLink>
-          </ul>
-          <ul className="py-2">
-            <NavLink to='/patient-guide'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Patient Guide</li>
-            </NavLink>
-            <NavLink to='/testimonials'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Testimonials</li>
-            </NavLink>
-            <NavLink to='/book-appointment'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Book Appointment</li>
-            </NavLink>
-            <NavLink to='/patient-guide'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Patient Guide</li>
-            </NavLink>
-            <NavLink to='/testimonials'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Testimonials</li>
-            </NavLink>
-            <NavLink to='/book-appointment'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Book Appointment</li>
-            </NavLink>
-          </ul>
-          <ul className="py-2">
-            <NavLink to='/patient-guide'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Patient Guide</li>
-            </NavLink>
-            <NavLink to='/testimonials'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Testimonials</li>
-            </NavLink>
-            <NavLink to='/book-appointment'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Book Appointment</li>
-            </NavLink>
-            <NavLink to='/patient-guide'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Patient Guide</li>
-            </NavLink>
-            <NavLink to='/testimonials'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Testimonials</li>
-            </NavLink>
-            <NavLink to='/book-appointment'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Book Appointment</li>
-            </NavLink>
-          </ul>
-         </div>
-          
-        </div>
-      )}
-    </div>
+    
+    
         <NavLink to='/news-and-media'
          className="text-white hover:text-purple-300 transition-all duration-300 ease-in-out 
               mt-2 ">
@@ -205,14 +111,14 @@ const Navbar = () => {
               mt-2 ">
             CONTACT
         </NavLink>
+        <div className='mt-2  2xl:ml-[25rem] sm:ml-[10px] md:ml-[10rem]' >
+        <ThemeToggle />
+       
+        </div>
         
        
        </div>
-        <div className='flex' >
-        <MdOutlineWbSunny className='text-2xl ml-55 mt-5 md:mt-3 md:mr-0'/>
-        <RxHamburgerMenu  className='text-2xl md:hidden cursor-pointer mr-2 mt-5'  onClick={toggleMenu}/>
-       
-        </div>
+        
         
     </div>
       </div>
@@ -220,11 +126,11 @@ const Navbar = () => {
     
      {    
             hamburger ?
-            <div className=' translate-y-0 relative z-99 transition-all transform duration-200 ease-in'>
+            <div className=' relative z-99'>
             <div className='flex justify-center bg-gray-300'>
                             <img src={assets.logoR} alt='hospital-logo' className='max-h-[5rem]' />
                      </div>
-            <div className='bg-[#035d67] text-white absolute w-[100%] p-2 md:hidden z-100 transition-all duration-500 ease-in-out '>
+            <div className='bg-[#035d67] text-white absolute w-[100%] p-2 md:hidden z-100'>
             <IoMdClose  className='float-end text-2xl cursor-pointer ' onClick={toggleMenu}/>
             <div className='grid place-items-center'>
                      
@@ -237,18 +143,17 @@ const Navbar = () => {
                     <li className='my-1 ml-5'><NavLink to='/news-and-media' onClick={toggleMenu}>NEWS</NavLink></li>
                     <li className='my-1 ml-5'><NavLink to='/contact' onClick={toggleMenu}>CONTACT</NavLink></li>
                     </ul>
-                    <button className='bg-[#bfd2f8] text-slate-700 font-semibold px-[30%] py-2 rounded-3xl cursor-pointer hover:bg-blue-500 duration-500' onClick={toggleMenu}>Sign Up</button> 
+
                 </div>   
              </div>
             </div>
             :
-            <div className='-translate-y-[15rem] absolute'>
-           
-            </div>
+          ''
  
         }
+       
       
-    <div className='flex justify-start md:gap-[22%] md:mx-[10%] m-3 '>
+    <div className='flex justify-start md:gap-[22%] md:mx-[10%] m-3 mt-0 pt-2 dark:text-white'>
        <div className='hidden md:block'>
             <img src={assets.logoR} alt='hospital-logo' className='max-h-[5rem]' />
        </div>
@@ -258,7 +163,7 @@ const Navbar = () => {
         <div>
            <span className='font-bold'>EMERGENCY</span> 
             <br />
-            <span className='text-[#035d67] font-bold'>033-71482073</span> 
+            <span className='text-[#035d67] dark:text-cyan-200 font-bold'>033-71482073</span> 
         </div>
        </div>
        <div className='flex items-center gap-1'>
@@ -266,7 +171,7 @@ const Navbar = () => {
         <div>
            <span className='font-bold'>WORKING HOUR</span> 
             <br />
-            <span className='text-[#035d67] font-bold'>24 X 7</span> 
+            <span className='text-[#035d67] dark:text-cyan-200 font-bold'>24 X 7</span> 
         </div>
        </div>
        <div className='flex  items-center gap-1'>
@@ -274,7 +179,7 @@ const Navbar = () => {
         <div>
            <span className='font-bold'>LOCATION</span> 
             <br />
-            <span className='text-[#035d67] font-bold'>Uluberia,Howrah</span> 
+            <span className='text-[#035d67] dark:text-cyan-200 font-bold'>Uluberia,Howrah</span> 
         </div>
        </div>
        </div>
@@ -284,11 +189,11 @@ const Navbar = () => {
        
        
     </div>
-    <div className='bg-[#035d67] py-4 text-white md:px-[13%] flex gap-[40%]'>
+    <div className='bg-[#035d67] dark:bg-[var(--dark-theme)] py-4 text-white md:px-[13%] flex gap-30'>
     <div className='block md:hidden'>
             <img src={assets.logo3} alt='hospital-logo' className='max-h-[4rem] ml-2' />
        </div>
-       <div className='justify-start align-center pt-1  border-0 gap-3 hidden md:flex'>
+       <div className='justify-start gap-5 align-center pt-1  border-0  hidden md:flex'>
        <NavLink 
           to='/'
           className={({ isActive }) =>
@@ -306,33 +211,19 @@ const Navbar = () => {
           }>
             ABOUT
         </NavLink>
-   <div 
-      className="relative inline-block"
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
-    >
+   
       {/* Button / Trigger */}
-      <button className=" text-white cursor-pointer hover:text-purple-300 "> 
-        PATIENT 🔽
-      </button>
+      <NavLink to='/patient-guide'
+        className={({ isActive }) =>
+            `text-white hover:text-purple-300  ${ 
+              isActive ? "border-b-4 border-indigo-500 " : " "
+            }`
+          }> 
+        PATIENT
+      </NavLink>
 
-      {/* Dropdown Menu */}
-      {isOpen && (
-        <div className="absolute -left-15 mt-1 w-48 bg-[#035a67] border border-gray-300 shadow-md  z-100 rounded">
-          <ul className="py-2">
-            <NavLink to='/patient-guide'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Patient Guide</li>
-            </NavLink>
-            <NavLink to='/testimonials'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Testimonials</li>
-            </NavLink>
-            <NavLink to='/book-appointment'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Book Appointment</li>
-            </NavLink>
-          </ul>
-        </div>
-      )}
-    </div>
+     
+    
         <NavLink to='/services'
          className={({ isActive }) =>
             `text-white hover:text-purple-300  ${ 
@@ -350,113 +241,16 @@ const Navbar = () => {
           }>
             DOCTORS
         </NavLink>
-        {/* <NavLink to='/departments'
-          className={({ isActive }) =>
+  
+ 
+      <NavLink to='/departments' className={({ isActive }) =>
             `text-white hover:text-purple-300  ${ 
               isActive ? "border-b-4 border-indigo-500 " : " "
-            }`
-          }>
-            DEPARTMENTS
-        </NavLink> */}
-  <div 
-      className="relative inline-block"
-      onMouseEnter={() => setIsDepOpen(true)}
-      onMouseLeave={() => setIsDepOpen(false)}
-    >
-      {/* Button / Trigger */}
-      <button className=" text-white cursor-pointer hover:text-purple-300 "> 
-        DEP 🔽
-      </button>
+            }`}> 
+        DEPARTMENT
+      </NavLink>
 
-      {/* Dropdown Menu */}
-      {isDepOpen && (
-        <div className="absolute -left-65 mt-1 w-190 bg-[#035a67] border border-gray-300 shadow-md  z-100 rounded">
-         <div className='flex gap-2'>
-         <ul className="py-2">
-            <NavLink to='/patient-guide'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Patient Guide</li>
-            </NavLink>
-            <NavLink to='/testimonials'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Testimonials</li>
-            </NavLink>
-            <NavLink to='/book-appointment'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Book Appointment</li>
-            </NavLink>
-            <NavLink to='/patient-guide'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Patient Guide</li>
-            </NavLink>
-            <NavLink to='/testimonials'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Testimonials</li>
-            </NavLink>
-            <NavLink to='/book-appointment'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Book Appointment</li>
-            </NavLink>
-          </ul>
-          <ul className="py-2">
-            <NavLink to='/patient-guide'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Patient Guide</li>
-            </NavLink>
-            <NavLink to='/testimonials'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Testimonials</li>
-            </NavLink>
-            <NavLink to='/book-appointment'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Book Appointment</li>
-            </NavLink>
-            <NavLink to='/patient-guide'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Patient Guide</li>
-            </NavLink>
-            <NavLink to='/testimonials'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Testimonials</li>
-            </NavLink>
-            <NavLink to='/book-appointment'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Book Appointment</li>
-            </NavLink>
-          </ul>
-          <ul className="py-2">
-            <NavLink to='/patient-guide'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Patient Guide</li>
-            </NavLink>
-            <NavLink to='/testimonials'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Testimonials</li>
-            </NavLink>
-            <NavLink to='/book-appointment'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Book Appointment</li>
-            </NavLink>
-            <NavLink to='/patient-guide'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Patient Guide</li>
-            </NavLink>
-            <NavLink to='/testimonials'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Testimonials</li>
-            </NavLink>
-            <NavLink to='/book-appointment'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Book Appointment</li>
-            </NavLink>
-          </ul>
-          <ul className="py-2">
-            <NavLink to='/patient-guide'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Patient Guide</li>
-            </NavLink>
-            <NavLink to='/testimonials'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Testimonials</li>
-            </NavLink>
-            <NavLink to='/book-appointment'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Book Appointment</li>
-            </NavLink>
-            <NavLink to='/patient-guide'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Patient Guide</li>
-            </NavLink>
-            <NavLink to='/testimonials'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Testimonials</li>
-            </NavLink>
-            <NavLink to='/book-appointment'>
-            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Book Appointment</li>
-            </NavLink>
-          </ul>
-         </div>
-          
-        </div>
-      )}
-    </div>
+   
         <NavLink to='/news-and-media'
          className={({ isActive }) =>
             `text-white hover:text-purple-300  ${ 
@@ -475,19 +269,28 @@ const Navbar = () => {
         </NavLink>
         
        
-       
+       <span className='xl:ml-[15rem] md:ml-[10rem] 2xl:ml-[30rem] hidden sm:block'>
+       <ThemeToggle />
+       </span>
        
         
        </div>
-        <div className='flex' >
-        <MdOutlineWbSunny className='text-2xl   cursor-pointer mr-2 mt-5 md:mt-3 md:mr-0'/>
-       
-        <RxHamburgerMenu  className='text-2xl md:hidden cursor-pointer mr-2 mt-5'  onClick={toggleMenu}/>
+        <div className='flex sm:hidden ' >
+        <ThemeToggle />
+        <RxHamburgerMenu  className='text-2xl  cursor-pointer  mt-5 ml-3'  onClick={toggleMenu}/>
        
         </div>
         
     </div>
-    </>
+    {/* {
+          floatHamburger ? 
+           <div  >
+       
+            <RxHamburgerMenu  className='text-2xl absolute top-30 left-30 bg-amber-100 cursor-pointer  mt-5 ml-3'  onClick={toggleMenu}/>
+       
+        </div>: ''
+        } */}
+    </div>
   )
 }
 

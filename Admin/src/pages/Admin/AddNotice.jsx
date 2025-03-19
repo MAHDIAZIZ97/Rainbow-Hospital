@@ -49,7 +49,7 @@ const submitHandler = async (e) => {
   return (
     <>
     <div>
-    <form className='border-1 border-blue-90  0 p-3 m-3 rounded-sm'
+    <form className='border-2 border-gray-400 p-3 m-3 rounded-md'
      onSubmit={submitHandler}>
       <p className='my-3 text-2xl text-[#035d67] font-semibold'>Add Notice</p>
       <div>
@@ -59,7 +59,7 @@ const submitHandler = async (e) => {
           <textarea 
               type='text' 
               id='name' required 
-              className='outline-1 outline-blue-600 mx-2 my-2 w-150'
+              className=' mx-2 my-2  w-150 outline-2 outline-gray-300 rounded-sm px-2 h-8'
               value={name}
               name='name'
               onChange={(e) => setName(e.target.value)}
@@ -71,7 +71,7 @@ const submitHandler = async (e) => {
             <input  
                 type='file' 
                 id='file' required 
-                className='outline-1 outline-blue-600 mx-2 my-2 w-154 cursor-pointer' 
+                className='outline-2 outline-gray-300 rounded-sm px-2 h-6 mx-2 my-2 w-154 cursor-pointer' 
                 accept='application/pdf'
                 name='file'
                 onChange={handleFileChange}

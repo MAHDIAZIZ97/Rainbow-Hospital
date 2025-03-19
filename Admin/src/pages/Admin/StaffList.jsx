@@ -1,13 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { adminContext } from "../../context/AdminContext";
+import { useNavigate } from "react-router-dom";
 
 const StaffList = () => {
   const { staffs, aToken, getAllStaffs } = useContext(adminContext);
+  const navigate = useNavigate('');
 
   // State for pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(4); // Default items per page
+  const [itemsPerPage, setItemsPerPage] = useState(3); // Default items per page
   const [searchTerm, setSearchTerm] = useState('');
+  const [editField, setEditField] = useState(false);
 
   useEffect(() => {
     if (aToken) {
@@ -16,9 +19,9 @@ const StaffList = () => {
   }, [aToken]);
 
   const filteredItems = staffs.filter(staffs => 
-      staffs.staffName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      staffs.staffEmail.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      staffs.staffId.toLowerCase().includes(searchTerm.toLowerCase()) 
+      staffs.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      staffs.email.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      staffs.id.toLowerCase().includes(searchTerm.toLowerCase()) 
   );
 
   // Calculate total pages
@@ -28,6 +31,10 @@ const StaffList = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentStaffs = filteredItems.slice(startIndex, endIndex);
+
+  const convertToIST = (utcDate) => {
+    return new Date(utcDate).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+  };
 
   return (
     <div>
@@ -44,17 +51,17 @@ const StaffList = () => {
           }}
           className="border-1"
         >
-          <option value="4">4</option>
-          <option value="8">8</option>
-          <option value="16">16</option>
-          <option value="24">24</option>
+          <option value="3">3</option>
+          <option value="6">6</option>
+          <option value="9">9</option>
+          <option value="12">12</option>
         </select>
       </div>
       <div>
         <input 
             type="text" 
-            placeholder="Search Staff" 
-            className=" border-blue-900  m-2 pl-1 rounded-sm w-50 outline-1" 
+            placeholder="Search Staff..." 
+            className=" pl-2 rounded-md w-50 ml-3 border-2 border-gray-300 h-8" 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -63,11 +70,19 @@ const StaffList = () => {
       {/* Staff List */}
       <div className="flex gap-3 flex-wrap justify-start">
         {currentStaffs.map((item, index) => (
-          <div key={index} className="border p-3 m-3 rounded-sm w-45 overflow-x-hidden">
-            <img src={item.staffImage} alt={item.staffName} className="h-30 w-25 m-auto" />
-            <p>{item.staffName}</p>
-            <p>{item.staffEmail}</p>
-            <p>{item.staffId}</p>
+          <div key={index} className="border-2 border-gray-400 p-3 m-3 rounded-sm w-70 overflow-x-hidden">
+            <img src={item.image} alt={item.name} className="h-30 w-25 m-auto" />
+            <p>Name:{item.name}</p>
+            <p>Email ID:{item.email}</p>
+            <p>Staff ID:{item.id}</p>
+            <p>Created At:{convertToIST(item.createdAt)}</p>
+            <p>Updated At:{convertToIST(item.updatedAt)}</p>
+            <button 
+                className='px-2 py-1 bg-[var(--sign-color)] rounded-md text-white cursor-pointer'
+                onClick={() => navigate(`/edit-staff/${item._id}`)}
+                >
+                Edit
+              </button>
           </div>
         ))}
       </div>

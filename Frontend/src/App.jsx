@@ -29,8 +29,9 @@ import Gynecology from './pages/Departments/Gynecology';
 import Neurology from './pages/Departments/Neurology';
 import Orthopaedics from './pages/Departments/Orthopaedics';
 import NotFound from './pages/NotFound';
-
 import Testimonials from './pages/Testimonials';
+import Ot from './pages/Services/Ot';
+import Emergency from './pages/Services/Emergency';
 
 
 
@@ -38,10 +39,10 @@ const App = () => {
 
   const location = useLocation();
 
-  const hideLayoutOnRoutes = ['*'];
-  const shouldHideLayout = hideLayoutOnRoutes.includes(location.pathname);
+  // const hideLayoutOnRoutes = ['*'];
+  // const shouldHideLayout = hideLayoutOnRoutes.includes(location.pathname);
   return (
-    <div>
+    <div className='dark:bg-[var(--dark-theme)]'>
     
      <Navbar />
       <Routes>
@@ -53,51 +54,52 @@ const App = () => {
         <Route path='/gallery' element={<Gallery />}/>
         <Route path='/health-blog' element={<HealthBlog />}/>
         <Route path='/login' element={<Login />}/>
-        <Route path='/my-appointments' element={<MyAppointments />}/>
         <Route path='/my-profile' element={<MyProfile />}/>
         <Route path='/news-and-media' element={<NewsAndMedia />}/>
         <Route path='/patient-guide' element={<PatientGuide />}/>
         <Route path='/doctors' element={<Doctors />}/>
-        <Route path='/doctors/:specialty' element={<Doctors />}/>
-        <Route path='/appointment/:docId' element={<Appointment />}/>
-        <Route path='/book-appointment' element={<BookAppointment />}/>
+        {/* <Route path='/doctors/:specialty' element={<Doctors />}/> */}
+        {/* <Route path='/appointment/:docId' element={<Appointment />}/> */}
+        <Route path='/book-appointment/:doctorName' element={<BookAppointment />}/>
         <Route path='/departments' element={<Departments />}/>
         <Route path='/testimonials' element={<Testimonials />}/>
 
         {/* services */}
         <Route path='/services/ipd' element={<Ipd />}/>
         <Route path='/services/opd' element={<Opd />}/>
+        <Route path='/services/ot' element={<Ot />}/>
         <Route path='/services/others' element={<Others />}/>
         <Route path='/services/pathology' element={<Pathology />}/>
         <Route path='/services/physiotherapy' element={<Physiotherapy />}/>
         <Route path='/services/radiology' element={<Radiology />}/>
+        <Route path='/services/emergency' element={<Emergency />} />
 
         {/* departments */}
         <Route path='/departments/cardiology' element={<Cardiology />}/>
-        <Route path='/departments' element={<Neurology/>}/>
-        <Route path='/departments' element={<Gynecology />}/>
-        <Route path='/departments' element={<Orthopaedics />}/>
+        <Route path='/departments/neurology' element={<Neurology/>}/>
+        <Route path='/departments/gynecology' element={<Gynecology />}/>
+        <Route path='/departments/orthopaedics' element={<Orthopaedics />}/>
+        <Route path='/departments/urology' element={<Departments />}/>
+        <Route path='/departments/nephrology' element={<Departments />}/>
+        <Route path='/departments/medicine' element={<Departments />}/>
+        <Route path='/departments/surgery' element={<Departments />}/>
+        <Route path='/departments/pediatrics' element={<Departments />}/>
+        <Route path='/departments/oral-and-maxilloficial' element={<Departments />}/>
+        <Route path='/departments/ophthalmology' element={<Departments />}/>
+        <Route path='/departments/oncology' element={<Departments />}/>
+        <Route path='/departments/gastroenterology' element={<Departments />}/>
+        <Route path='/departments/ctvs' element={<Departments />}/>
+        <Route path='/departments/psychiatry' element={<Departments />}/>
+        <Route path='/departments/psychology' element={<Departments />}/>
+        <Route path='/departments/ent' element={<Departments />}/>
+        <Route path='/departments/dermatology' element={<Departments />}/>
+        <Route path='/departments/endocrinology' element={<Departments />}/>
+        <Route path='/departments/hematology' element={<Departments />}/>
+        <Route path='/departments/allergology' element={<Departments />}/>
+        <Route path='/departments/pulmonology' element={<Departments />}/>
+        <Route path='/departments/' element={<Departments />}/>
         <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
-        <Route path='/departments' element={<Departments />}/>
+        <Route path='/departments/others' element={<Departments />}/>
         {/* <Route path='*' element= {<NotFound />} /> */}
 
       </Routes>

@@ -22,6 +22,7 @@ const NoticeList = () => {
                 <tr >
                     <th className='border-1'>Notice Name</th>
                     <th className='border-1'>File</th>
+                    <th className='border-1'>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,7 +30,8 @@ const NoticeList = () => {
               notices.map((notice,index) => (
                 <tr key={index}>
                   <td className='border-1 pl-5 py-2'>{notice.name}</td>
-                  <td className='border-1 pl-5 py-2'><a href="#">{notice.file}</a></td>
+                  {/* <td className='border-1 pl-5 py-2'><a href="#">{notice.file}</a></td> */}
+                  <td><button>Delete</button></td>
                 </tr>
               ))
             }

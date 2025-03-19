@@ -1,13 +1,14 @@
 @import "tailwindcss";
 
+*{
+  font-family: "Fira Sans", serif;
+}
+
+
 @theme {
-    --color-primary: #11; /* Dark mode primary color */
-    --color-background: #0f172a; /* Dark mode background */
-    --color-text: #f8fafc; /* Dark mode text */
+    --dark-theme: #0e142a; 
+    --sign-color: #035d67;
   }
 
-  @dark{
-    --color-primary: #f8fafc; /* Light mode primary color */
-    --color-background: #111827; /* Light mode background */
-    --color-text: #0f172a; /* Light mode text */
-  }
+
+@custom-variant dark (&:where(.dark, .dark *));

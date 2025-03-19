@@ -2,36 +2,44 @@ import mongoose from 'mongoose';
 
 
 const allBookingSchema = new mongoose.Schema({
-    ptName: {
+    Name: {
         type: String,
         required: true
     },
-    ptContact: {
+    Contact: {
         type: Number,
         required: true
     },
-    docName: {
+    Doctor: {
+        // type: mongoose.Schema.Types.ObjectId,
+        // ref: 'Doctor',
         type: String,
         required: true
     },
-    bookingDate: {
+    BookingDate: {
         type: Date,
         required: true
     },
-    ptGender: {
+    Gender: {
         type: String,
         required: true
     },
-    ptAge: {
+    Age: {
         type: String,
         required: true
     },
-    ptAddress: {
+    Address: {
         type: String,
         required: true  
     },
-
-});
+    BookingStatus: {
+        type: String,
+        required: true,
+        enum: ['pending','confirmed','cancelled'],
+        default: 'pending'
+    },
+},
+    {timestamps: true},);
 
 
 const allBookingModel = mongoose.models.allBookingModel || mongoose.model('allBooking', allBookingSchema);

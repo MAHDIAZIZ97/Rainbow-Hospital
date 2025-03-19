@@ -58,7 +58,7 @@ const AddStaff = () => {
         onSubmit={onSubmitHandler}
         encType='multipart/form-data'
         >
-      <p className='my-3 text-2xl text-[#035d67] font-semibold'>Add Staff</p>
+      <p className='my-3 text-2xl text-[#035d67] font-semibold'>Edit Staff</p>
       <div>
         <div className='flex gap-1.5 my-4'>
             <label htmlFor='image'>
@@ -118,7 +118,7 @@ const AddStaff = () => {
            type='submit'
            disabled={isSubmitting}
         >
-        {isSubmitting ? <img  src='/loader.gif' alt='Loading...' width="42"/> : 'Submit'}
+        {isSubmitting ? <img  src='/loader.gif' alt='Loading...' width="42"/> : 'Update'}
         </button>
         </div>
         

@@ -1,14 +1,42 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Hero from '../components/Hero'
 import GetInTouch from '../components/GetInTouch'
 import { assets } from '../assets/assets'
 import Statistics from '../components/Statistics'
 import DocCard from '../components/DocCard'
-import Search from '../components/Search'
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
+
+import { useEffect } from 'react'
+import axios from 'axios';
 
 const Doctors = () => {
+  const [doctors,setDoctors] = useState([]);
+  const [searchTerm,setSearchTerm] = useState([]);
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const getAllDoctors = async () =>{
+      try {
+        const {data} = await axios.get(backendUrl + '/api/user/all-doctors');
+        if(data.success){
+          setDoctors(data.doctors);
+          console.log(data)
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+  
+  }
+  useEffect(()=>{
+    getAllDoctors();
+  }, [])
+
+
+
+  const filteredDoctors = doctors.filter(doc =>
+    doc.name.toLowerCase().includes(searchTerm) ||
+    doc.speciality.toLowerCase().includes(searchTerm) ||
+    doc.degree.toLowerCase().includes(searchTerm) ||
+    doc.experience.toLowerCase().includes(searchTerm)||
+    doc.availableDays.toLowerCase().includes(searchTerm)
+  );
   return (
     <div>
     {/* hero props */}
@@ -18,21 +46,24 @@ const Doctors = () => {
         pageName={`Our Doctors`}
       />
       {/* page content */}
-      <div className='flex justify-center items-center mt-6 mb-1 gap-8 sm:flex-row flex-col'>
-         <Search placeHolder={`Search by Doctor`}/>
-         <Search placeHolder={`Search by Department`} />
-         <Stack direction="row" spacing={2}>
-            <Button variant="contained" className='w-40 h-14'>Search</Button>
-        </Stack>
-      </div>
+       <div className='my-3 flex justify-center '>
+       
+       <input  
+            type='search'
+            placeholder='Search Doctors...'
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+            className='sm:w-2/8 w-6/8 h-10 border-2 border-gray-500 dark:border-white rounded-sm outline-0 px-2'
+            />
+       </div>
+      
         <div className='flex flex-col items-center sm:flex-row flex-wrap gap-x-2 gap-y-5 justify-center my-8'>
-          <DocCard  name={`DR.DANG`} desc={`Neurologist`} degree={`MBBS,MD`}/>
-          <DocCard  name={`DR.DANG`} desc={`Neurologist`} degree={`MBBS,MD`}/>
-          <DocCard  name={`DR.DANG`} desc={`Neurologist`} degree={`MBBS,MD`}/>
-          <DocCard  name={`DR.DANG`} desc={`Neurologist`} degree={`MBBS,MD`}/>
-          <DocCard  name={`DR.DANG`} desc={`Neurologist`} degree={`MBBS,MD`}/>
-          <DocCard  name={`DR.DANG`} desc={`Neurologist`} degree={`MBBS,MD`}/>
-          <DocCard  name={`DR.DANG`} desc={`Neurologist`} degree={`MBBS,MD`}/>
+        {
+          filteredDoctors.map((doc, index) => (
+            <DocCard key={doc._id} name={doc.name} desc={doc.specialization} degree={doc.degree} image={doc.image} speciality={doc.speciality} exp={doc.experience} available={doc.availableDays.toUpperCase()}/>
+          ))
+          
+        }
         </div>
       {/* component */}
       <Statistics />

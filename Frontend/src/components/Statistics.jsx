@@ -28,7 +28,7 @@ export default function Statistics() {
   }, []);
 
   return (
-    <div className="flex md:flex-row  flex-col justify-around p-8 bg-gray-100 rounded-lg shadow-md">
+    <div className="flex md:flex-row dark:bg-[var(--dark-theme)] flex-col justify-around p-8 bg-gray-100 rounded-lg shadow-md dark:text-white">
       <div className="text-center">
       <h3 className="text-2xl font-semibold">Total Beds</h3>
       <p className="text-4xl font-bold text-orange-600">{totalBeds}+</p>

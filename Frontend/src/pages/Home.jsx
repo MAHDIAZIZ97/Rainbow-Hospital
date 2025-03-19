@@ -15,16 +15,18 @@ import GetInTouch from '../components/GetInTouch';
 import Footer from '../components/Footer';
 import NoticeBar from '../components/NoticeBar';
 import HomeHero from '../components/HomeHero';
+import { NavLink } from 'react-router-dom';
 
 
 
 const Home = () => {
+  
   return (
     <>
     <NoticeBar />
     
     {/* first part */}
-    <div className='relative bg-slate-200 flex  sm:gap-10 '>
+    <div className='relative bg-slate-200 flex  sm:gap-10 dark:bg-[var(--dark-theme)]'>
         <div className='px-[4rem]'>
           <HomeHero />
         </div>
@@ -34,13 +36,13 @@ const Home = () => {
       
       
       <div className='absolute justify-center w-full top-[90%] gap-4 hidden md:flex'>
-        <button className='flex gap-2 bg-red-400 mt-3 px-8 py-6  text-gray-800 font-semibold hover:bg-gray-100 duration-500 cursor-pointer'>BOOK APPOINTMENT
+        <button className='flex gap-2 bg-red-400 mt-3 px-8 py-6  text-gray-800 font-semibold hover:bg-gray-100 duration-500 hover:rounded-xl cursor-pointer'>BOOK APPOINTMENT
         <FaRegAddressBook className='mt-1' />
         </button>
-        <button className='flex gap-2 bg-blue-400 mt-3 px-8 py-6  text-gray-800 font-semibold hover:bg-gray-100 duration-500 cursor-pointer'>OUR SERVICES
+        <button className='flex gap-2 bg-blue-400 mt-3 px-8 py-6  text-gray-800 font-semibold hover:bg-gray-100 duration-500 hover:rounded-xl cursor-pointer'>OUR SERVICES
         <FaRegAddressBook className='mt-1' />
         </button>
-        <button className='flex gap-2 bg-red-400 mt-3 px-8 py-6  text-gray-800 font-semibold hover:bg-gray-100 duration-500 cursor-pointer'>OUR DEPARTMENTS
+        <button className='flex gap-2 bg-red-400 mt-3 px-8 py-6  text-gray-800 font-semibold hover:bg-gray-100 duration-500 cursor-pointer hover:rounded-xl'>OUR DEPARTMENTS
         <FaRegAddressBook className='mt-1' />
         </button>
         </div>
@@ -53,7 +55,7 @@ const Home = () => {
       </div>
 
     {/* 2nd part */}
-     <div className='mt-[2rem]  flex  flex-wrap justify-center ' >
+     <div className='mt-[2rem]  flex dark:text-white flex-wrap justify-center ' >
         <div className=' p-3 text-center basis-128'>
           <p className='text-xl font-semibold text-cyan-400'>WELCOME TO RAINBOW HOSPITAL</p>
           <h1 className='text-3xl text-[#11667A] font-bold'>A great place to receive care.</h1>
@@ -66,7 +68,7 @@ const Home = () => {
          <img src={assets.page2c} className='px-1  md:px-[13%] h-65 w-full'/>
      </div>
      {/* 4th part */}
-     <div> 
+     <div className='dark:text-white'> 
        <div className='flex flex-col text-center my-8'>  
           <span className='text-cyan-400 text-xl tracking-widest uppercase font-semibold'>Care you can believe in</span>
           <span className='text-[#11667A] text-4xl font-semibold uppercase'>Our Services</span>
@@ -91,7 +93,9 @@ const Home = () => {
                   EMERGENCY 
                 </li>
              </ul>
+             <NavLink to='/services'>
              <button className='px-10 py-5 w-full text-white bg-[#11667A] hover:bg-white hover:text-[#11667A] border-2 border-gray-200 cursor-pointer transition-all duration-200 ease-out'>View All</button>
+             </NavLink>
           </div>
           <div className='col-span-6 hidden md:block'>
              <ul>
@@ -120,7 +124,7 @@ const Home = () => {
        </div>
      </div>
      {/* 5th part */}
-      <div className='px-[13%]'>
+      <div className='px-[13%] dark:text-white'>
           <div className='mt-8'>
             <ul className='text-center'>
               <li className='text-2xl text-cyan-400 tracking-widest'>Always Caring</li>
@@ -129,71 +133,62 @@ const Home = () => {
           </div>
           <div className='flex flex-col' >
           <div className='mb-2 ml-[6rem] md:ml-0'>
+          <NavLink to='/departments'>
           <button
           className=' md:float-right bg-[#11667A] px-2 py-1 text-white rounded-md hover:text-[#11667A] hover:bg-white border-1 border-[#11667A] transition-all duration-200 ease-in cursor-pointer
-           hover:shadow-2xl '>View All</button>
+           hover:shadow-2xl '>Explore</button>
+           </NavLink>
           </div>
+          
          
         </div>
           <div className='grid grid-cols-12 gap-1 mt-7'>
-               
+                
                 <div className='md:col-span-3  col-span-4 border-1 py-6 rounded-md cursor-pointer  border-gray-200 place-items-center hover:bg-[#11667A] hover:text-white transition-all duration-150 ease-in hover:-translate-y-0.5 '>
                 <LuHeartPulse  className='text-6xl text-cyan-300'/>
                 Cardiology
                 </div>
                 <div className='md:col-span-3  col-span-4 border-1 py-6 rounded-md cursor-pointer  border-gray-200 place-items-center hover:bg-[#11667A] hover:text-white transition-all duration-150 ease-in hover:-translate-y-0.5 '>
                 <LuHeartPulse  className='text-6xl text-cyan-300'/>
-                Cardiology
+                Neurology
                 </div>
                 <div className='md:col-span-3  col-span-4 border-1 py-6 rounded-md cursor-pointer  border-gray-200 place-items-center hover:bg-[#11667A] hover:text-white transition-all duration-150 ease-in hover:-translate-y-0.5 '>
                 <LuHeartPulse  className='text-6xl text-cyan-300'/>
-                Cardiology
+                Medicine
                 </div>
                 <div className='md:col-span-3  col-span-4 border-1 py-6 rounded-md cursor-pointer  border-gray-200 place-items-center hover:bg-[#11667A] hover:text-white transition-all duration-150 ease-in hover:-translate-y-0.5 '>
                 <LuHeartPulse  className='text-6xl text-cyan-300'/>
-                Cardiology
+                Gynaecology
                 </div>
                 <div className='md:col-span-3  col-span-4 border-1 py-6 rounded-md cursor-pointer  border-gray-200 place-items-center hover:bg-[#11667A] hover:text-white transition-all duration-150 ease-in hover:-translate-y-0.5 '>
                 <LuHeartPulse  className='text-6xl text-cyan-300'/>
-                Cardiology
+                Orthopedics
                 </div>
                 <div className='md:col-span-3  col-span-4 border-1 py-6 rounded-md cursor-pointer  border-gray-200 place-items-center hover:bg-[#11667A] hover:text-white transition-all duration-150 ease-in hover:-translate-y-0.5 '>
                 <LuHeartPulse  className='text-6xl text-cyan-300'/>
-                Cardiology
+                Surgery
                 </div>
                 <div className='md:col-span-3  col-span-4 border-1 py-6 rounded-md cursor-pointer  border-gray-200 place-items-center hover:bg-[#11667A] hover:text-white transition-all duration-150 ease-in hover:-translate-y-0.5 '>
                 <LuHeartPulse  className='text-6xl text-cyan-300'/>
-                Cardiology
-                </div>
-                <div className='md:col-span-3 col-span-4 border-1 py-6 rounded-md cursor-pointer  border-gray-200 place-items-center hover:bg-[#11667A] hover:text-white transition-all duration-150 ease-in hover:-translate-y-0.5 '>
-                <LuHeartPulse  className='text-6xl text-cyan-300'/>
-                Cardiology
+                Dermatology
                 </div>
                 <div className='md:col-span-3  col-span-4 border-1 py-6 rounded-md cursor-pointer  border-gray-200 place-items-center hover:bg-[#11667A] hover:text-white transition-all duration-150 ease-in hover:-translate-y-0.5 '>
                 <LuHeartPulse  className='text-6xl text-cyan-300'/>
-                Cardiology
-                </div>
-                <div className='md:col-span-3  col-span-4 border-1 py-6 rounded-md cursor-pointer  border-gray-200 place-items-center hover:bg-[#11667A] hover:text-white transition-all duration-150 ease-in hover:-translate-y-0.5 '>
+                ENT
+                </div> 
+                <div className='md:col-span-3 sm:hidden col-span-4 border-1 py-6 rounded-md cursor-pointer  border-gray-200 place-items-center hover:bg-[#11667A] hover:text-white transition-all duration-150 ease-in hover:-translate-y-0.5 '>
                 <LuHeartPulse  className='text-6xl text-cyan-300'/>
-                Cardiology
-                </div>
-                <div className='md:col-span-3  col-span-4 border-1 py-6 rounded-md cursor-pointer  border-gray-200 place-items-center hover:bg-[#11667A] hover:text-white transition-all duration-150 ease-in hover:-translate-y-0.5 '>
-                <LuHeartPulse  className='text-6xl text-cyan-300'/>
-                Cardiology
-                </div>
-                <div className='md:col-span-3  col-span-4 border-1 py-6 rounded-md cursor-pointer  border-gray-200 place-items-center hover:bg-[#11667A] hover:text-white transition-all duration-150 ease-in hover:-translate-y-0.5 '>
-                <LuHeartPulse  className='text-6xl text-cyan-300'/>
-                Cardiology
-                </div>
+                 Urology
+                </div> 
           </div>
       </div>
        {/* 6th part */}
-      <div className="bg-linear-to-t from-sky-200 to-indigo-200  mt-15  flex flex-col  px-[13%]  py-6">
+      {/* <div className="bg-linear-to-t from-sky-200 to-indigo-200  mt-15  flex flex-col  px-[13%]  py-6">
            <p className='text-center text-3xl uppercase font-semibold text-cyan-400  mb-6'>Book an Appointment</p>
             <BookAppointment />
            
           
-      </div>
+      </div> */}
 
        {/* 7th part */}
 
@@ -207,9 +202,11 @@ const Home = () => {
         </div>
         <div className='flex flex-col' >
           <div className='mb-2 ml-[6rem] md:ml-0'>
+          <NavLink to='/doctors'>
           <button
           className=' md:float-right bg-[#11667A] px-2 py-1 text-white rounded-md hover:text-[#11667A] hover:bg-white border-1 border-[#11667A] transition-all duration-200 ease-in cursor-pointer
            hover:shadow-2xl '>View All</button>
+           </NavLink>
           </div>
          
         </div>

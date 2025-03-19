@@ -12,6 +12,8 @@ const adminContextProvider  = (props) => {
     const [staffs,setStaffs] = useState([]);
     const [doctors,setDoctors] = useState([]);
     const [notices, setNotices] = useState([]);
+    const [otPackages, setOtpackages] = useState([]);
+    const [healthPackages, setHealthPackages] = useState([]);
     
     //console.log(backendUrl); // for testing backendUrl
     const getAllStaffs = async () =>{
@@ -63,12 +65,47 @@ const adminContextProvider  = (props) => {
             }
     }
 
+    const getAllHealthPackages = async () =>{
+        try {
+            const { data } = await axios.post(backendUrl + '/api/admin/all-health-packages', {}, {headers: {aToken}});
+            if(data.success){
+                setHealthPackages(data.healthPackages); 
+            }
+            else{
+                toast.error(data.message);
+            }
+        } catch (error) {
+            console.log(error.message);
+            toast.error("Failed to get health packages");
+        }
+
+    }
+
+    const getAllOtPackages = async () =>{
+        try {
+            const { data } = await axios.post(backendUrl + '/api/admin/all-ot-packages', {}, {headers: {aToken}});
+            if(data.success){
+                setOtpackages(data.otPackages); //otPackages is the name of the collection as well as state variable
+            }
+            else{
+                toast.error(data.message);
+            }
+        } catch (error) {
+            console.log(error.message);
+            toast.error("Failed to get OT packages");
+        }
+
+    }
+
     const value = {
         aToken,setAToken,
         backendUrl,
         staffs,getAllStaffs,
         doctors,getAllDoctors,
-        notices,getAllNotices
+        notices,getAllNotices,
+        getAllHealthPackages,
+        getAllOtPackages,
+        otPackages,healthPackages
     };
 
     // console.log(value);

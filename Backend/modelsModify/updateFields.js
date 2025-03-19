@@ -5,9 +5,6 @@ const updateDoctorFields = async () => {
         await doctor.updateMany({}, { 
             $set:{'availableDays' : ''}
         });
-        // console.log('field updated successfully')
-        // const doc = doctor.find();
-        // console.log(doc);
     } catch (error) {
         console.log(error);
     }
@@ -27,4 +24,16 @@ const updateTimeStampToDoctorFields = async () => {
 
 updateTimeStampToDoctorFields();
 
-export {updateDoctorFields, updateTimeStampToDoctorFields}
+// const modifyStaffFields = async () =>{
+//     try {
+//         await staffModel.updateMany({}, {
+//             $rename:{'staffEmail' : 'email', 'staffName' : 'name', 'staffPassword' : 'password'},
+//         });
+//         console.log('file updated successfully');
+//     } catch (error) {
+//         console.error(error);
+//     }
+// }
+
+
+export {updateDoctorFields, updateTimeStampToDoctorFields,modifyStaffFields}

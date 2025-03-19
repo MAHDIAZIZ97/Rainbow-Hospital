@@ -1,23 +1,24 @@
 import validator from 'validator';
 import bcrypt from 'bcrypt';
 import staffModel from '../models/StaffModel.js';
+import jwt from 'jsonwebtoken';
 
 
 // change password
 
 const changePassword = async (req, res) => {
     try {
-        const {staffName,oldPassword, newPassword} = req.body;
+        const {email,oldPassword, newPassword} = req.body;
 
         // Validate required fields
-        if (!staffName ||!oldPassword ||!newPassword) {
+        if (!email ||!oldPassword ||!newPassword) {
             return res.status(400).json({ message: 'All fields are required' });
         }
-        const staffExist = await staffModel.findOne({staffName});
+        const staffExist = await staffModel.findOne({email});
         if (!staffExist) {
             return res.status(400).json({ message: 'Staff not found' });
         }
-        const isMatch = await bcrypt.compare(oldPassword, staffExist.staffPassword);
+        const isMatch = await bcrypt.compare(oldPassword, staffExist.password);
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid old password' });
         }
@@ -28,7 +29,7 @@ const changePassword = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(newPassword, salt);
         const staffData = new staffModel({
-            staffPassword: hashedPassword,
+            password: hashedPassword,
         });
 
         await staffData.save();
@@ -39,4 +40,33 @@ const changePassword = async (req, res) => {
     }
 }
 
-export {changePassword};
+
+const loginStaff = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Ensure both fields are provided
+        if (!email || !password) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
+
+        const staff = await staffModel.findOne({ email });
+        if (!staff) {
+            return res.status(400).json({ message: "Invalid credentials" });
+        }
+
+        const isMatch = await bcrypt.compare(password, staff.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: "Invalid credentials" });
+        }
+
+       
+        const token = jwt.sign({ id: staff._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+        res.json({ success: true, token });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+export {changePassword,loginStaff};

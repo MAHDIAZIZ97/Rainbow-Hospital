@@ -3,7 +3,7 @@ import React from 'react'
 const Opd = () => {
   return (
     <div>
-      OPD
+      OPD services
     </div>
   )
 }

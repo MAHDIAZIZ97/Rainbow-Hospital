@@ -27,6 +27,7 @@ const healthPackageSchema = mongoose.Schema(
     { timestamps: true }
 );
 
-const healthPackageModel = mongoose.model.healthPackageModel || mongoose.model("HealthPackage",                 healthPackageSchema);
+const healthPackageModel = mongoose.model.healthPackageModel || 
+                           mongoose.model("HealthPackage",healthPackageSchema);
 
 export default healthPackageModel;

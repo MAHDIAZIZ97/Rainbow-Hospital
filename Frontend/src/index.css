@@ -3,3 +3,11 @@
 *{
    font-family: "Fira Sans", serif;
 }
+
+@theme {
+   --dark-theme: #0e142a; 
+   --sign-color: #035d67;
+ }
+
+
+@custom-variant dark (&:where(.dark, .dark *));

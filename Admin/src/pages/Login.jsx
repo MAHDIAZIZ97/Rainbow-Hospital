@@ -4,6 +4,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { FaRegEye } from "react-icons/fa6";
 import { FaRegEyeSlash } from "react-icons/fa6";
+import { StaffContext } from '../context/StaffContext';
+import { NavLink } from 'react-router-dom'
 
 const Login = () => {
 
@@ -11,6 +13,7 @@ const Login = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const { setAToken,backendUrl } = useContext(adminContext);
+   const {setSToken} = useContext(StaffContext);
    const [eye,setEye] = useState(true);
 
    const toggleEye = () => {
@@ -20,8 +23,9 @@ const Login = () => {
    const onSubmitHandler = async (event) =>{
       event.preventDefault();
       try {
-        if (state === 'Admin') {
+          if(state === 'Admin'){
           const {data} = await axios.post(backendUrl + '/api/admin/login', {email, password});
+          
            if(data.success) {
              localStorage.setItem('aToken', data.token);
              setAToken(data.token);
@@ -31,19 +35,28 @@ const Login = () => {
              localStorage.removeItem('aToken');
              setAToken('');
            }
+          }
+          if(state=='Staff'){
+            const {data} = await axios.post(backendUrl + '/api/staff/login', {email, password});
+             if(data.success) {
+             localStorage.setItem('sToken', data.token);
+             setSToken(data.token);
+             console.log(data.token);
+             }
+             else{
+             toast.error(data.message);
+             localStorage.removeItem('sToken');
+             setSToken('');
+             }
+          }
         }
-        else{
-          toast.error('Invalid Credentials');
-        }
-      } catch (error) {
+       catch (error) {
          toast.error('Invalid Credentials');
       }
     }
    
-
-  
-
   return (
+    <div className='h-screen bg-gradient-to-r from-indigo-200 via-purple-200 to-cyan-200 dark:bg-red-900'>
     <form onSubmit={onSubmitHandler} className= ' min-h-[80vh] flex items-center justify-center'>
        <div className='flex flex-col rounded-lg items-start justify-center bg-white p-6 shadow-lg  gap-3 text-sm min-w-[20rem] sm:min-w-96 '>
              <div className='text-2xl font-semibold text-[#11667A] uppercase m-auto'>
@@ -77,10 +90,12 @@ const Login = () => {
               <p>Staff login? <span onClick={() => setState('Staff')}  className='cursor-pointer text-cyan-400 font-normal underline' >Click Here</span></p>
               :<p>Admin login? <span onClick={() => setState('Admin')} className='cursor-pointer text-cyan-400 font-normal underline'>Click Here</span></p>
             }
+           
             </div>
           
        </div>
     </form>
+    </div>
   )
 }
 

@@ -5,36 +5,37 @@ import { FaLinkedin } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { IoLogoYoutube } from "react-icons/io";
 import { assets } from '../assets/assets';
+import { NavLink } from 'react-router-dom';
 
 
 
 const Footer = () => {
   return (
-    <div className=' bg-[#11667A] text-white font-extralight text-[0.9rem]'>
+    <div className=' bg-[#11667A] dark:bg-[var(--dark-theme)] text-white font-extralight text-[0.9rem]'>
       <div className='text-center mx-[13%] grid grid-cols-12 pt-12 gap-5'>
         <div className='md:col-span-4 col-span-12'>
             <img src={assets.logo3}/>
             <p>Leading the Way in Medical</p>
-            <p>Execellence, Trusted Care.</p>
+            <p>Excellence, Trusted Care.</p>
         </div>
         <div className='md:col-span-4 col-span-12'>
             <p className='text-xl underline'>Quick Links</p>
             <ul>
-               <li>Home</li>
-               <li>About</li>
-               <li>Services</li>
-               <li>Doctors</li>
-               <li>News</li>
+            <NavLink to='/' onClick={() => window.scrollTo(0,0)}><li>Home</li></NavLink>
+            <NavLink to='/about' onClick={() => window.scrollTo(0,0)}><li>About</li></NavLink>
+            <NavLink to='/services' onClick={() => window.scrollTo(0,0)}><li>Services</li></NavLink>
+            <NavLink to='/doctors' onClick={() => window.scrollTo(0,0)}><li>Doctors</li></NavLink>
+            <NavLink to='/news-and-media' onClick={() => window.scrollTo(0,0)}><li>News</li></NavLink>
             </ul>
 
         </div>
         <div className='md:col-span-4 col-span-12'>
           <p className='text-xl underline'>Contact Us</p>
-          <p>OPD-1: 6292291350</p>
-          <p>OPD-2: 9748493438</p>
+          <a href='tel:6292291350'><p>OPD-1: 6292291350</p></a>
+          <a href='tel:9748493438'><p>OPD-1: 9748493438</p></a>
           <p>Gangarampur,Uluberia</p>
           <p>Howrah,711316</p>
-          <p>EMAIL: rainobwuluberia@gmail.com</p>
+          <a href='mailto:rainbowuluberia@gmail.com'><p>EMAIL: rainobwuluberia@gmail.com</p></a>
            
         </div>
         

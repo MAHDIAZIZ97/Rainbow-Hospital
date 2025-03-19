@@ -49,29 +49,29 @@ const addDoctor = async (req,res) =>{
 // adding staff api
 const addStaff = async (req, res) => {
     try {
-        const { staffName, staffEmail, staffPassword,staffId } = req.body;
+        const { name,email,id,password } = req.body;
         const imageFile = req.file;
         //console.log("File Path Before Upload:", imageFile.path);
 
         // Validate required fields
-        if (!staffName || !staffEmail  || !staffPassword || !staffId || !imageFile) {
+        if (!name || !email  || !password || !id || !imageFile) {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
         // Validate email uniqueness
-        const existingStaff = await staffModel.findOne({ staffEmail });
+        const existingStaff = await staffModel.findOne({ email });
         if (existingStaff) {
             return res.status(400).json({ message: 'Email already exists' });
         }
 
         // Validate password strength
-        if (staffPassword.length < 8 ) {
+        if (password.length < 8 ) {
             return res.status(400).json({ message: 'Please enter a strong password' });
         }
 
         // Hash password properly
         const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(staffPassword, salt);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
         // Upload image to Cloudinary
         const imageUpload = await cloudinary.uploader.upload(imageFile.path, {
@@ -84,11 +84,11 @@ const addStaff = async (req, res) => {
 
         // Save staff data to database
         const staffData = new staffModel({
-            staffName,
-            staffEmail,
-            staffId,
-            staffPassword: hashedPassword,
-            staffImage: imageUrl,
+            name,
+            email,
+            id,
+            password: hashedPassword,
+            image: imageUrl,
         });
 
         await staffData.save();
@@ -134,7 +134,7 @@ const addHealthPackage = async (req,res) => {
 const addOtPackage = async (req,res) => {
     try{
         const {name, price, department, remarks} = req.body;
-        //   validation
+        
         if(!name ||!price ||!department){
              return res.status(400).json({message: 'All fields are required'});
         }
@@ -189,7 +189,7 @@ const allNotices = async (req, res) => {
         res.status(500).json({success:false,message: error.message});
     }
 }
-// api for patient booking from patient portal (userendPanel)
+// api for patient booking from patient portal (useRendPanel)
 
 const bookAppointment = async (req,res) => {
     
@@ -237,21 +237,82 @@ const allDoctors= async (req, res) => {
     }
 }
 
+const findStaff = async (req, res) => {
+    const id = req.params.id;
+    const staffExist = await staffModel.findById({_id:id});
+    if(!staffExist){
+        res.status(404).json({success:false,message: 'Staff not found'});
+    }
+    res.status(200).json({success:true,staff:staffExist});
+}
+
 // edit all staff members
-// const updateStaff = async (req,res) =>{
-//     try {
-//         const id = req.params.id;
-//         const staffExist = await staffModel.findById({_id:id});
-//         if(!staffExist){
-//             res.status(404).json({success:false,message: 'Staff not found'});
-//         }
-//        const updateStaff  = await staffModel.findByIdAndUpdate(id, req.body, {new:true});
-//        res.status(201).json({success:true, message:"user updated successfully",updateStaff});
-//     }catch (error) {
-//         console.log(error.message);
-//         res.status(500).json({success:false,message: error.message});
-//     }
-// }
+const updateStaff = async (req,res) =>{
+    try {
+        const id = req.params.id;
+        const staffExist = await staffModel.findById({_id:id});
+        if(!staffExist){
+            res.status(404).json({success:false,message: 'Staff not found'});
+        }
+       const updateStaff  = await staffModel.findByIdAndUpdate(id, req.body, {new:true});
+       res.status(201).json({success:true, message:"user updated successfully",updateStaff});
+    }catch (error) {
+        console.log(error.message);
+        res.status(500).json({success:false,message: error.message});
+    }
+}
+
+const allHealthPackages = async (req,res) => {
+    try {
+        const healthPackages = await healthPackageModel.find({});
+        res.json({success:true,healthPackages});
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({success:false,message: error.message});
+    }
+}
+
+const allOtPackages = async (req,res) => {
+     try {
+        const otPackages = await otPackageModel.find({});
+        res.json({success:true,otPackages});
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({success:false,message: error.message});
+    }
+}
+
+const deleteOtPackages = async (req,res) => {
+    try {
+        const id = req.params.id;
+        const otPackageExist = await otPackageModel.findById({_id:id});
+        if(!otPackageExist){
+            res.status(404).json({success:false,message: 'Ot package not found'});
+        }
+        await otPackageExist.remove();
+        res.status(200).json({success:true, message:"Ot package deleted successfully"});
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({success:false,message: error.message});
+    }
+}
+
+const deleteHealthPackages = async (req,res) => {
+    try {
+        const id = req.params.id;
+        const healthPackageExist = await healthPackageModel.findById({_id:id});
+        if(!healthPackageExist){
+            res.status(404).json({success:false,message: 'Health package not found'});
+        }
+        await healthPackageExist.remove();
+        res.status(200).json({success:true, message:"Health package deleted successfully"});
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({success:false,message: error.message});
+    }
+}
+
+
 export {
     addStaff,
     addDoctor,
@@ -263,4 +324,8 @@ export {
     addNotice,
     allNotices,
     bookAppointment,
+    updateStaff,
+    findStaff,
+    allHealthPackages,
+    allOtPackages,
 };

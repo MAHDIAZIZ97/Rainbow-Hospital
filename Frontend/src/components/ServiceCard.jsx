@@ -7,14 +7,14 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {assets} from '../assets/assets';
 
-export default function ImgMediaCard({name,basicDesc}) {
+export default function ImgMediaCard({name,basicDesc,image}) {
   return (
-    <Card sx={{ maxWidth: 225 }}>
+    <Card sx={{ maxWidth: 285, minWidth:250 }}>
       <CardMedia
         component="img"
         alt="green iguana"
         height="120"
-        image= {assets.doc1}
+        image= {image}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">

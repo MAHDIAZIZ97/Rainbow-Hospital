@@ -17,7 +17,6 @@ const AddDoctor = () => {
     { value: "thursday", label: "Thursday" },
     { value: "friday", label: "Friday" },
     { value: "saturday", label: "Saturday" },
-    { value: "everyday", label: "Everyday" },
   ];
 
     const [name, setName] = useState('');
@@ -87,7 +86,7 @@ const AddDoctor = () => {
       onSubmit={submitHandler}
       encType='multipart/form-data'
       className='border-2 border-gray-400 p-3 m-3 rounded-md'>
-      <p className='my-3 text-2xl text-[#035d67] font-semibold'>Add Doctor</p>
+      <p className='my-3 text-2xl text-[#035d67] font-semibold'>Edit Doctor</p>
       <div>
         <div className='flex gap-1.5 my-4'>
             <label htmlFor='image'>
@@ -136,8 +135,9 @@ const AddDoctor = () => {
               <option id='specialty' name='speciality' value="Orthopedic Surgeon">Orthopedic Surgeon</option>
               <option id='specialty' name='speciality' value="Pediatrician">Pediatrician</option>
               <option id='specialty' name='speciality' value="Psychiatrist">Psychiatrist</option>
-              <option id='specialty' name='speciality' value="Surgeon">General Surgeon</option>
+              <option id='specialty' name='speciality' value="Surgeon">Surgeon</option>
               <option id='specialty' name='speciality' value="Urologist">Urologist</option>
+              <option id='specialty' name='speciality' value="Veterinarian">Veterinarian</option>
               <option id='specialty' name='speciality' value="Anesthesiologist">Anesthesiologist</option>
               <option id='specialty' name='speciality' value="Gynecologist">Gynecologist</option>
               <option id='specialty' name='speciality' value="Oncologist">Oncologist</option>
@@ -187,7 +187,7 @@ const AddDoctor = () => {
            type='submit'
            disabled={isSubmitting}
         >
-         {isSubmitting ? <img  src='/loader.gif' alt='Loading...' width="42"/> : 'Submit'}
+         {isSubmitting ? <img  src='/loader.gif' alt='Loading...' width="42"/> : 'Update'}
         </button>
         </div>
         

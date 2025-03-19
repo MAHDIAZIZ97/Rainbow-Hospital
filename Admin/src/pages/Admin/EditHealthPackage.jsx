@@ -3,10 +3,6 @@ import React, {useContext, useState} from 'react'
 import { adminContext } from '../../context/AdminContext';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-// import { CKEditor } from "@ckeditor/ckeditor5-react";
-// import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // 
 
 
 const AddHealthPackage = () => {
@@ -65,7 +61,7 @@ const AddHealthPackage = () => {
   return (
     <form className='border-2 border-gray-400 p-3 m-3 rounded-md'
      onSubmit={submitHandler}>
-      <p className='my-3 text-2xl text-[#035d67] font-semibold'>Add Health Packages</p>
+      <p className='my-3 text-2xl text-[#035d67] font-semibold'>Edit Health Packages</p>
       <div>
        
         <div>
@@ -119,24 +115,13 @@ const AddHealthPackage = () => {
             name='description'
             value={description}
             onChange={(e) => setDescription(e.target.value)} />
-        {/* <CKEditor
-        editor={ClassicEditor}
-        data={description}
-        onChange={(event, editor) => {
-          const data = editor.getData();
-          setDescription(data);
-        }}
-      />
-      <p className="mt-4 text-gray-600">Preview:</p>
-      <div className="border p-2 mt-2" dangerouslySetInnerHTML={{ __html: description }} /> */}
-      {/* <ReactQuill value={description} onChange={(e) => setDescription(e.target.value)} theme="snow" /> */}
         </div>
         <div className='flex justify-center'>
         <button className={`mt-2  px-3 py-1 rounded-lg text-white  border-[#035d67] transition-all duration-100 ease-in ${isSubmitting ?'cursor-not-allowed bg-[#b3e0e4ef]':'cursor-pointer bg-[#035d67]'} ` }
            type='submit'
            disabled={isSubmitting}
         >
-         {isSubmitting ? <img  src='/loader.gif' alt='Loading...' width="42"/> : 'Submit'}
+         {isSubmitting ? <img  src='/loader.gif' alt='Loading...' width="42"/> : 'Update'}
         </button>
         </div>
       </div>

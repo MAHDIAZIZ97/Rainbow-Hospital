@@ -67,7 +67,7 @@ const AddOtPackage = () => {
     <form 
         className='border-2 border-gray-400 p-3 m-3 rounded-md'
         onSubmit={handleSubmit}>
-      <p className='my-3 text-2xl text-[#035d67] font-semibold'>Add Ot Packages</p>
+      <p className='my-3 text-2xl text-[#035d67] font-semibold'>Edit Ot Packages</p>
       <div>
         
         <div>
@@ -116,7 +116,7 @@ const AddOtPackage = () => {
            type='submit'
            disabled={isSubmitting}
         >
-         {isSubmitting ? <img  src='/loader.gif' alt='Loading...' width="42"/> : 'Submit'}
+         {isSubmitting ? <img  src='/loader.gif' alt='Loading...' width="42"/> : 'Update'}
         </button>
         </div>
       </div>

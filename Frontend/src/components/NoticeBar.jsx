@@ -26,9 +26,12 @@ export default function NoticeBar() {
         <p className="text-sm sm:text-base font-bold">
           🏥 Book your appointment online for quick service!
         </p>
+        <a href="C:\Users\mahdi\AppData\Local\Temp\download.pdf" download="Demo.pdf">
         <p className="text-sm sm:text-base font-bold">
           🥼 Download daily doctor list.
         </p>
+        </a>
+       
         </div>
         </div>
       </div>
