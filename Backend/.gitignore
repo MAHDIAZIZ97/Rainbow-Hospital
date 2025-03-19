@@ -1,3 +1,2 @@
 node_modules/     # Ignore dependencies  
 .env              # Ignore environment variables  
-env.txt           # Ignore environment variables
