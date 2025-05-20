@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { adminContext } from "../../context/AdminContext";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const StaffList = () => {
-  const { otPackages, aToken, getAllOtPackages } = useContext(adminContext);
+  const { otPackages, aToken, getAllOtPackages,backendUrl } = useContext(adminContext);
   const navigate = useNavigate('');
 
   // State for pagination
@@ -31,6 +33,21 @@ const StaffList = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentOtPackages = filteredItems.slice(startIndex, endIndex);
+
+   const handleOtDelete = async (id) => {
+       try {
+        const confirmDelete = window.confirm("Are you sure you want to delete this ot package?");
+        if(!confirmDelete) return;
+        await axios.post(backendUrl +`/api/admin/delete-ot-package/${id}`,{},{headers: {aToken}});
+        currentOtPackages.filter(item => item._id !== id);
+        getAllOtPackages();
+        toast.success("OT package deleted successfully");
+       } catch (error) {
+          console.error(error.message);
+          toast.error("Failed to delete OT package");
+       }
+       
+    }
 
   const convertToIST = (utcDate) => {
     return new Date(utcDate).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
@@ -80,13 +97,13 @@ const StaffList = () => {
             
             <button 
                 className='px-2 py-1 bg-[var(--sign-color)] rounded-md text-white cursor-pointer'
-                onClick={() => navigate(`/edit-ot-package/${item._id}`)}
+                onClick={() => navigate(`/update-ot-package/${item._id}`)}
                 >
                 Edit
               </button>
               <button 
                 className='px-2 mx-3 py-1 bg-[var(--sign-color)] rounded-md text-white cursor-pointer'
-                onClick={() => confirm('Are you sure you want to delete??')}
+                onClick={() => handleOtDelete(item._id)}
                 >
                 Delete
               </button>

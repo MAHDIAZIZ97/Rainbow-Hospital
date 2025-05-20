@@ -1,15 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import { adminContext } from "../../context/AdminContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const StaffList = () => {
-  const { healthPackages, aToken, getAllHealthPackages } = useContext(adminContext);
+  const { healthPackages, aToken, getAllHealthPackages,backendUrl } = useContext(adminContext);
   const navigate = useNavigate('');
 
   // State for pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(3); // Default items per page
+  const [itemsPerPage, setItemsPerPage] = useState(3); 
   const [searchTerm, setSearchTerm] = useState('');
+  
 
 
   useEffect(() => {
@@ -31,7 +34,20 @@ const StaffList = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentHealthPackages = filteredItems.slice(startIndex, endIndex);
-
+  const handleDelete = async (id) => {
+     try {
+      const confirmDelete = window.confirm("Are you sure you want to delete this health package?");
+      if(!confirmDelete) return;
+      await axios.post(backendUrl +`/api/admin/delete-health-package/${id}`,{},{headers: {aToken}});
+      currentHealthPackages.filter(item => item._id !== id);
+      getAllHealthPackages();
+      toast.success("Health package deleted successfully");
+     } catch (error) {
+        console.error(error.message);
+        toast.error("Failed to delete health package");
+     }
+     
+  }
   const convertToIST = (utcDate) => {
     return new Date(utcDate).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
   };
@@ -82,13 +98,13 @@ const StaffList = () => {
             
             <button 
                 className='px-2 py-1 bg-[var(--sign-color)] rounded-md text-white cursor-pointer'
-                onClick={() => navigate(`/edit-staff/${item._id}`)}
+                onClick={() => navigate(`/update-health-package/${item._id}`)}
                 >
                 Edit
               </button>
               <button 
                 className='px-2 mx-3 py-1 bg-[var(--sign-color)] rounded-md text-white cursor-pointer'
-                onClick={() => confirm('Are you sure you want to delete??')}
+                onClick={() => handleDelete(item._id)}
                 >
                 Delete
               </button> 

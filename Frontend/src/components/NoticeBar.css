@@ -7,6 +7,6 @@
     display: flex;
     gap: 8rem;
     min-width: 100%;
-    animation: marquee 30s linear infinite;
+    animation: marquee 25s linear infinite;
   }
   

@@ -1,10 +1,12 @@
 import React from 'react';
 import { useContext,useEffect } from 'react';
 import { adminContext } from '../../context/AdminContext';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const NoticeList = () => {
 
-  const {notices,aToken, getAllNotices} = useContext(adminContext);
+  const {notices,aToken, getAllNotices,backendUrl} = useContext(adminContext);
 
 
   useEffect(() => {
@@ -12,6 +14,21 @@ const NoticeList = () => {
       getAllNotices();
     }
   } , [aToken]);
+
+  const handleNoticeDelete = async (id) => {
+         try {
+          const confirmDelete = window.confirm("Are you sure you want to delete this notice?");
+          if(!confirmDelete) return;
+          await axios.post(backendUrl +`/api/admin/delete-notice/${id}`,{},{headers: {aToken}});
+          notices.filter(item => item._id !== id);
+          getAllNotices();
+          toast.success("OT package deleted successfully");
+         } catch (error) {
+            console.error(error.message);
+            toast.error("Failed to delete OT package");
+         }
+         
+      }
 
 
   return (
@@ -30,8 +47,22 @@ const NoticeList = () => {
               notices.map((notice,index) => (
                 <tr key={index}>
                   <td className='border-1 pl-5 py-2'>{notice.name}</td>
-                  {/* <td className='border-1 pl-5 py-2'><a href="#">{notice.file}</a></td> */}
-                  <td><button>Delete</button></td>
+                  <td className='border-1 pl-5 py-2 translate-x-13'>
+                      <a
+                        href={`${backendUrl}/uploads/pdfs/${notice.file}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-[#035d67] text-white px-3 py-1  rounded-md hover:bg-cyan-900"
+                      >
+                        View PDF
+                      </a>
+                  </td>
+                  <td className='border-1 pl-5 py-2 translate-x-13'>
+                  <button
+                    className='bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700'
+                    onClick={() => handleNoticeDelete(notice._id)}
+                  >Delete</button>
+                  </td>
                 </tr>
               ))
             }

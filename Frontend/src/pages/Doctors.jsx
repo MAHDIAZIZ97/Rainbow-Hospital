@@ -17,7 +17,7 @@ const Doctors = () => {
         const {data} = await axios.get(backendUrl + '/api/user/all-doctors');
         if(data.success){
           setDoctors(data.doctors);
-          console.log(data)
+          //console.log(data)
         }
       } catch (error) {
         console.error('Error:', error);

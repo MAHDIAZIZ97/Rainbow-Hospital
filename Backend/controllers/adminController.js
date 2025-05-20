@@ -8,6 +8,7 @@ import jwt from 'jsonwebtoken';
 import otPackageModel from '../models/otPackageModel.js';
 import noticeModel from '../models/noticeModel.js';
 import fs from 'fs';
+import doctorDetailModel from '../models/doctorDetailModel.js';
 
 
 // api for adding doctor
@@ -159,20 +160,23 @@ const addNotice = async (req,res) => {
         const {name} = req.body;
         const file  = req.file;
         if(!name || !file){
-            return res.status(400).json({message: 'All fields are required'});
+            return res.status(400).json({success:false, message: 'All fields are required'});
         }
-
-        const fileUpload = await cloudinary.uploader.upload(file.path, {resource_type: 'raw'});
-        const fileUrl = fileUpload.secure_url;
-
         const noticeData = new noticeModel({
             name,
-            file: fileUrl,
+            file:file.filename,
         });
 
         await noticeData.save();
-        fs.unlinkSync(file.path);
-        res.status(200).json({success:true, message: 'Notice added successfully'});
+
+       return res.status(200).json(
+        {
+            success:true,
+            message: 'Notice added successfully',
+            path: file.path,
+            fileName: file.filename,
+        }
+       );
     } catch (error) {
         res.status(500).json({success:false,message: error.message});
     }
@@ -237,31 +241,6 @@ const allDoctors= async (req, res) => {
     }
 }
 
-const findStaff = async (req, res) => {
-    const id = req.params.id;
-    const staffExist = await staffModel.findById({_id:id});
-    if(!staffExist){
-        res.status(404).json({success:false,message: 'Staff not found'});
-    }
-    res.status(200).json({success:true,staff:staffExist});
-}
-
-// edit all staff members
-const updateStaff = async (req,res) =>{
-    try {
-        const id = req.params.id;
-        const staffExist = await staffModel.findById({_id:id});
-        if(!staffExist){
-            res.status(404).json({success:false,message: 'Staff not found'});
-        }
-       const updateStaff  = await staffModel.findByIdAndUpdate(id, req.body, {new:true});
-       res.status(201).json({success:true, message:"user updated successfully",updateStaff});
-    }catch (error) {
-        console.log(error.message);
-        res.status(500).json({success:false,message: error.message});
-    }
-}
-
 const allHealthPackages = async (req,res) => {
     try {
         const healthPackages = await healthPackageModel.find({});
@@ -282,14 +261,113 @@ const allOtPackages = async (req,res) => {
     }
 }
 
+const findDoctor = async (req, res) => {
+    const id = req.params.id;
+    const doctorExist = await doctorModel.findById(id);
+    if(!doctorExist){
+        res.status(404).json({success:false,message: 'Doctor not found'});
+    }
+    res.status(200).json({success:true,doctor:doctorExist});
+}
+const updateDoctor = async (req, res) =>{
+    try {
+        const id = req.params.id;
+        const doctorExist = await doctorModel.findById(id);
+        if(!doctorExist){
+            res.status(404).json({success:false,message: 'Doctor not found'});
+        }
+       const updateDoctor  = await doctorModel.findByIdAndUpdate(id, req.body, {new:true});
+       res.status(201).json({success:true, message:"Doctor updated successfully",updateDoctor});
+    }catch (error) {
+        console.log(error.message);
+        res.status(500).json({success:false,message: error.message});
+    }
+
+}
+const findStaff = async (req, res) => {
+    const id = req.params.id;
+    const staffExist = await staffModel.findById(id);
+    if(!staffExist){
+        res.status(404).json({success:false,message: 'Staff not found'});
+    }
+    res.status(200).json({success:true,staff:staffExist});
+}
+
+const updateStaff = async (req,res) =>{
+    try {
+        const id = req.params.id;
+        const staffExist = await staffModel.findById(id);
+        if(!staffExist){
+            res.status(404).json({success:false,message: 'Staff not found'});
+        }
+       const updateStaff  = await staffModel.findByIdAndUpdate(id, req.body, {new:true});
+       res.status(201).json({success:true, message:"User updated successfully",updateStaff});
+    }
+    catch (error) {
+        console.log(error.message);
+        res.status(500).json({success:false,message: error.message});
+    }
+}
+
+const findHealthPackage = async (req, res) => {
+    const id = req.params?.id;
+    const healthPackageExist = await healthPackageModel.findById({_id:id});
+    if(!healthPackageExist){
+        res.status(404).json({success:false,message: 'Health package not found'});
+    }
+    res.status(200).json({success:true,healthPackage:healthPackageExist});
+}
+
+const updateHealthPackage = async (req,res) =>{
+    try {
+        const id = req.params.id;
+        const healthPackageExist = await healthPackageModel.findById(id);
+        if(!healthPackageExist){
+            res.status(404).json({success:false,message: 'Health package not found'});
+        }
+       const updateHealthPackage  = await healthPackageModel.findByIdAndUpdate(id, req.body, {new:true});
+       res.status(201).json({success:true, message:"Health package updated successfully",updateHealthPackage});
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({success:false,message: error.message});
+    }
+}
+
+const findOtPackage = async (req, res) => {
+    const id = req.params.id;
+    const otPackageExist = await otPackageModel.findById(id);
+    if(!otPackageExist){
+        res.status(404).json({success:false,message: 'Ot package not found'});
+    }
+    res.status(200).json({success:true,otPackage:otPackageExist});
+}
+
+const updateOtPackage = async (req,res) =>{
+    try {
+        const id = req.params.id;
+        const otPackageExist = await otPackageModel.findById(id);
+        if(!otPackageExist){
+            res.status(404).json({success:false,message: 'Ot package not found'});
+        }
+       const updateOtPackage  = await otPackageModel.findByIdAndUpdate(id, req.body, {new:true});
+       res.status(201).json({success:true, message:"Ot package updated successfully",updateOtPackage});
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({success:false,message: error.message});
+    }
+}
+
 const deleteOtPackages = async (req,res) => {
     try {
         const id = req.params.id;
+        if (!id) {
+            return res.status(400).json({ success: false, message: "ID is required" });
+        }
         const otPackageExist = await otPackageModel.findById({_id:id});
         if(!otPackageExist){
             res.status(404).json({success:false,message: 'Ot package not found'});
         }
-        await otPackageExist.remove();
+        await otPackageExist.deleteOne({_id:id});
         res.status(200).json({success:true, message:"Ot package deleted successfully"});
     } catch (error) {
         console.log(error.message);
@@ -297,21 +375,89 @@ const deleteOtPackages = async (req,res) => {
     }
 }
 
-const deleteHealthPackages = async (req,res) => {
+const deleteHealthPackages = async (req, res) => {
     try {
         const id = req.params.id;
-        const healthPackageExist = await healthPackageModel.findById({_id:id});
-        if(!healthPackageExist){
-            res.status(404).json({success:false,message: 'Health package not found'});
+        const healthPackageExist = await healthPackageModel.findById(id);
+
+        if (!healthPackageExist) {
+            return res.status(404).json({ success: false, message: 'Health package not found' });
         }
-        await healthPackageExist.remove();
-        res.status(200).json({success:true, message:"Health package deleted successfully"});
+
+        await healthPackageModel.deleteOne({ _id: id });
+
+        res.status(200).json({ success: true, message: "Health package deleted successfully" });
     } catch (error) {
-        console.log(error.message);
-        res.status(500).json({success:false,message: error.message});
+        console.error("Error deleting health package:", error.message);
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+const deleteNotice = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const noticeExist = await noticeModel.findById(id);
+        if (!noticeExist) {
+            return res.status(404).json({ success: false, message: 'Notice not found' });
+        }
+        await noticeModel.deleteOne({ _id: id });
+        res.status(200).json({ success: true, message: "Notice deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting notice:", error.message);
+        res.status(500).json({ success: false, message: error.message });
     }
 }
 
+
+const addDoctorDetails = async (req,res) => {
+   try {
+      const {name,opdTiming,aboutDoctor} = req.body;
+      if(!name || !opdTiming || !aboutDoctor){
+        res.status(400).json({success:false, message:'All fields are required.'})
+      }
+
+      const doctorDetail = new doctorDetailModel({
+          name,opdTiming,aboutDoctor
+      });
+    
+      await doctorDetail.save();
+
+      res.status(200).json({success:true, message:'Doctor details added successfully.'})
+
+   } catch (error) {
+    res.status(400).json({success:false, message:'Error occur.'})
+   }
+}
+
+const updateDoctorDetails = async (req,res) => {
+   try {
+    const id = req.params.id;
+    const idExists = await doctorDetailModel.findById(id);
+    if(!idExists){
+        return res.status(400).json({success:false, message:'Id not found.'})
+    }
+    const updateDoctorDetail = await doctorDetailModel.findByIdAndDelete(id,req.body,{new:true});
+    res.status(200).json({success:true, message:'Updated successfully.', updateDoctorDetail});
+    
+   } catch (error)
+    {
+       res.status(400).json({success:false,  message:error.message});
+   }
+}
+
+const deleteDoctorDetails = async (req,res) =>{
+   try {
+      const id = req.params.id;
+      const idExist = await doctorDetailModel.findById(id);
+      if(!idExist){
+          return res.status(400).json({success:false, message:'Id not found.'})
+      }
+      await doctorDetailModel.deleteOne({_id:id});
+      res.status(200).json({success:true, message:'Deleted successfully.'})
+
+   } catch (error) {
+      res.status(400).json({success: false, message: error.message})
+   }
+}
 
 export {
     addStaff,
@@ -326,6 +472,18 @@ export {
     bookAppointment,
     updateStaff,
     findStaff,
+    findDoctor,
+    updateDoctor,
     allHealthPackages,
     allOtPackages,
+    deleteHealthPackages,
+    deleteOtPackages,
+    findHealthPackage,
+    updateHealthPackage,
+    findOtPackage,
+    updateOtPackage,
+    deleteNotice,
+    addDoctorDetails,
+    updateDoctorDetails,
+    deleteDoctorDetails
 };

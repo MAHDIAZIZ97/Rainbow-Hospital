@@ -16,39 +16,68 @@ const Services = () => {
         pageName={`Our Services`}
       />
       {/* page content */}
-      <div className='flex flex-col items-center sm:flex-row flex-wrap gap-x-2 gap-y-5 justify-center px-[13%] my-8'>
-        <NavLink to='/services/opd'>
-            <ServiceCard name={`OPD`} basicDesc={`basic desc about opd`} image={assets.doc1} />  
-        </NavLink>
-        <NavLink to='/services/ipd'>
-        <ServiceCard name={`IPD`} basicDesc={`basic desc about opd`}  image={assets.contact_image} />
-        </NavLink>
-        <NavLink to='/services/pathology'>
-        <ServiceCard name={`PATHOLOGY`} basicDesc={`basic desc about opd`} image={assets.about_image} />
-          </NavLink>
-          <NavLink to='/services/ot'>
-          <ServiceCard name={`OT`} basicDesc={`basic desc about opd`} image={assets.appointment_img}/>
-          </NavLink>
-          <NavLink to='/services/radiology'>
-          <ServiceCard name={`RADIOLOGY`} basicDesc={`basic desc about opd`} image={'/rainbow_logo.png'} />
-          </NavLink>
-          <NavLink to='/services/physiotherapy'>
-          <ServiceCard name={`PHYSIOTHERAPY`} basicDesc={`basic desc about opd`} image={assets.about_image} />
-          </NavLink>
-          <NavLink to='/services/others'>
-          <ServiceCard name={`OTHERS`} basicDesc={`basic desc about opd`} image={assets.appointment_img} />
-          </NavLink>
-          <NavLink to='/services/emergency'>
-          <ServiceCard name={`EMERGENCY`} basicDesc={`basic desc about opd`} image={assets.about_image} />
-          </NavLink>
-            
-            
-            
-            
-            
-            
-            
-         </div>
+      <div>
+          <div className='text-center'> 
+              <h1 className='text-[#11667A] text-4xl font-semibold uppercase '>Our Services</h1>
+          </div>
+           <div className='flex flex-wrap gap-4 justify-center items-center my-5'>
+              <NavLink to='/services/ipd'>
+                  <div className='sm:h-80 sm:w-80 h-40 w-40 bg-[#9ecbd4] rounded-lg my-6'>
+                      <img src={assets.doc8} />
+                      <h1 className='text-center sm:text-2xl text-xl text-[#035d67] font-semibold'>In Patient</h1>
+                  </div>
+                </NavLink>
+                <NavLink to='/services/opd'>
+                  <div className='sm:h-80 sm:w-80 h-40 w-40 bg-[#9ecbd4] rounded-lg my-6'>
+                      <img src={assets.doc8} />
+                      <h1 className='text-center sm:text-2xl text-xl text-[#035d67] font-semibold'>Out Patient</h1>
+                  </div>
+                </NavLink>
+                <NavLink to='/services/ot'>
+                  <div className='sm:h-80 sm:w-80 h-40 w-40 bg-[#9ecbd4] rounded-lg my-6'>
+                      <img src={assets.doc8} />
+                      <h1 className='text-center sm:text-2xl text-xl text-[#035d67]  font-semibold'>Operation</h1>
+                  </div>
+                </NavLink>
+                <NavLink to='/services/pathology'>
+                  <div className='sm:h-80 sm:w-80 h-40 w-40 bg-[#9ecbd4] rounded-lg my-6'>
+                      <img src={assets.doc8} />
+                      <h1 className='text-center sm:text-2xl text-xl text-[#035d67] font-semibold'>Pathology</h1>
+                  </div>
+                </NavLink>
+                <NavLink to='/services/physiotherapy'>
+                  <div className='sm:h-80 sm:w-80 h-40 w-40 bg-[#9ecbd4] rounded-lg my-6'>
+                      <img src={assets.doc8} />
+                      <h1 className='text-center sm:text-2xl text-xl text-[#035d67] font-semibold'>Physiotherapy</h1>
+                  </div>
+                </NavLink>
+                <NavLink to='/services/radiology'>
+                  <div className='sm:h-80 sm:w-80 h-40 w-40 bg-[#9ecbd4] rounded-lg my-6'>
+                      <img src={assets.doc8} />
+                      <h1 className='text-center sm:text-2xl text-xl text-[#035d67] font-semibold'>Radiology</h1>
+                  </div>
+                </NavLink>
+                <NavLink to='/services/emergency'>
+                  <div className='sm:h-80 sm:w-80 h-40 w-40 bg-[#9ecbd4] rounded-lg my-6'>
+                      <img src={assets.doc8} />
+                      <h1 className='text-center sm:text-2xl text-xl text-[#035d67] font-semibold'>Emergency</h1>
+                  </div>
+                </NavLink>
+                <NavLink to='/services/packages'>
+                  <div className='sm:h-80 sm:w-80 h-40 w-40 bg-[#9ecbd4] rounded-lg my-6'>
+                      <img src={assets.doc8} />
+                      <h1 className='text-center sm:text-2xl text-xl text-[#035d67] font-semibold'>Packages</h1>
+                  </div>
+                </NavLink>
+                <NavLink to='/services/others'>
+                  <div className='sm:h-80 sm:w-80 h-40 w-40 bg-[#9ecbd4] rounded-lg my-6'>
+                      <img src={assets.doc8} />
+                      <h1 className='text-center sm:text-2xl text-xl text-[#035d67] font-semibold'>Others</h1>
+                  </div>
+                </NavLink>
+           </div>
+           
+          </div>
       {/* component */}
       <GetInTouch />
     </div>

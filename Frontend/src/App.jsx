@@ -29,9 +29,13 @@ import Gynecology from './pages/Departments/Gynecology';
 import Neurology from './pages/Departments/Neurology';
 import Orthopaedics from './pages/Departments/Orthopaedics';
 import NotFound from './pages/NotFound';
-import Testimonials from './pages/Testimonials';
+import { ToastContainer } from 'react-toastify';
 import Ot from './pages/Services/Ot';
 import Emergency from './pages/Services/Emergency';
+import EnquiryForm from './components/EnquiryForm';
+import Packages from './pages/Services/Packages';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 
@@ -53,22 +57,24 @@ const App = () => {
         <Route path='/contact' element={<Contact />}/>
         <Route path='/gallery' element={<Gallery />}/>
         <Route path='/health-blog' element={<HealthBlog />}/>
-        <Route path='/login' element={<Login />}/>
-        <Route path='/my-profile' element={<MyProfile />}/>
+        {/* <Route path='/login' element={<Login />}/> */}
+        {/* <Route path='/my-profile' element={<MyProfile />}/> */}
         <Route path='/news-and-media' element={<NewsAndMedia />}/>
         <Route path='/patient-guide' element={<PatientGuide />}/>
         <Route path='/doctors' element={<Doctors />}/>
+        <Route path='/enquiry' element={<EnquiryForm />} />
         {/* <Route path='/doctors/:specialty' element={<Doctors />}/> */}
         {/* <Route path='/appointment/:docId' element={<Appointment />}/> */}
         <Route path='/book-appointment/:doctorName' element={<BookAppointment />}/>
         <Route path='/departments' element={<Departments />}/>
-        <Route path='/testimonials' element={<Testimonials />}/>
+        {/* <Route path='/testimonials' element={<Testimonials />}/> */}
 
         {/* services */}
         <Route path='/services/ipd' element={<Ipd />}/>
         <Route path='/services/opd' element={<Opd />}/>
         <Route path='/services/ot' element={<Ot />}/>
         <Route path='/services/others' element={<Others />}/>
+        <Route path='/services/packages' element={<Packages />}/>
         <Route path='/services/pathology' element={<Pathology />}/>
         <Route path='/services/physiotherapy' element={<Physiotherapy />}/>
         <Route path='/services/radiology' element={<Radiology />}/>
@@ -77,7 +83,7 @@ const App = () => {
         {/* departments */}
         <Route path='/departments/cardiology' element={<Cardiology />}/>
         <Route path='/departments/neurology' element={<Neurology/>}/>
-        <Route path='/departments/gynecology' element={<Gynecology />}/>
+        <Route path='departments/gynecology' element={<Gynecology />}/>
         <Route path='/departments/orthopaedics' element={<Orthopaedics />}/>
         <Route path='/departments/urology' element={<Departments />}/>
         <Route path='/departments/nephrology' element={<Departments />}/>
@@ -104,6 +110,15 @@ const App = () => {
 
       </Routes>
       <Footer />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="colored"
+      />
     </div>
   )
 }

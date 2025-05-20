@@ -50,7 +50,6 @@ const AddStaff = () => {
       finally{
         setIsSubmitting(false);
       }
-
   }
   return (
     <form 
@@ -82,7 +81,7 @@ const AddStaff = () => {
                name='name'
                value={name}
                onChange={(e) => setName(e.target.value)}
-               />
+            />
           <label htmlFor='email'>Email:</label>
           <input 
               type='email' 
@@ -91,18 +90,18 @@ const AddStaff = () => {
               name='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              />
+            />
         </div>
         <div>
           <label htmlFor='id'>Employee Id:</label>
-          <input 
+        <input 
             type='text' 
             id='id' required 
             className='outline-2 outline-gray-300 rounded-sm px-2 h-8 mx-2 my-2 w-59'
             value={id}
             name='id'
             onChange={(e) => setId(e.target.value)}
-            />
+          />
           <label htmlFor='password'>Password:</label>
           <input 
               type='password' 

@@ -13,7 +13,8 @@ const Sidebar = () => {
   const {aToken} = useContext(adminContext);
   const {sToken} = useContext(StaffContext);
   return (
-    <div className='bg-blue-100 dark:bg-[var(--dark-theme)] dark:text-white min-h-screen min-w-[15%]'>
+    <div className='bg-blue-100 dark:bg-[var(--dark-theme)] dark:text-white min-h-screen sm:w-45
+    min-w-[45%]'>
      {
       aToken && 
       <ul>
@@ -27,6 +28,11 @@ const Sidebar = () => {
          ${isActive ? `border-r-4 border-[#035d67] dark:text-black bg-cyan-100`: `null`}`} to={'/all-appointments'}>
             <FaRegAddressBook />
             <p>Appointments</p>
+         </NavLink>
+         <NavLink className={({isActive})=> `flex gap-2 py-1 items-center px-2 
+         ${isActive ? `border-r-4 border-[#035d67] dark:text-black bg-cyan-100`: `null`}`} to={'/all-enquiry'}>
+            <FaRegAddressBook />
+            <p>Enquiry</p>
          </NavLink>
          <NavLink className={({isActive})=> `flex gap-2 py-1 items-center px-2 
          ${isActive ? `border-r-4 border-[#035d67] dark:text-black bg-cyan-100`: `null`}`} to={'/add-staff'}>

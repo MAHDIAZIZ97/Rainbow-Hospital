@@ -43,15 +43,17 @@ import page2c from './page2c.jpg'
 import page3a from './page3a.avif'
 import page3b from './page3b.jpeg'
 import logo3 from './logo3.png'
-
+import aboutUs from './aboutUs.png'
 
 export const assets = {
     appointment_img,
     header_img,
     group_profiles,
     logo,
+    aboutUs,
     logoR,
     page2,
+    doc8,
     page3a,
     logo3,
     page3b,

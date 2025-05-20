@@ -74,7 +74,7 @@ const AddDoctor = () => {
             toast.error(data.message);
           }
         }
-         catch (error) {
+        catch (error) {
            console.log(error);
            toast.error(error.message);
         }
@@ -87,7 +87,7 @@ const AddDoctor = () => {
       onSubmit={submitHandler}
       encType='multipart/form-data'
       className='border-2 border-gray-400 p-3 m-3 rounded-md'>
-      <p className='my-3 text-2xl text-[#035d67] font-semibold'>Add Doctor</p>
+      <p className='my-3 text-2xl text-[var(--sign-color)] font-semibold'>Add Doctor</p>
       <div>
         <div className='flex gap-1.5 my-4'>
             <label htmlFor='image'>
@@ -124,7 +124,7 @@ const AddDoctor = () => {
         <div className=''>
           <label htmlFor='specialty'>Specialty:</label>
           {/* <input type='text' id='staff-id' required className='outline-1 outline-blue-600 mx-2 my-2 w-59'/> */}
-          <select className=' mx-2 w-61 h-6 outline-2 outline-gray-300 rounded-sm px-2 h-8'
+          <select className=' mx-2 w-61 outline-2 outline-gray-300 rounded-sm px-2 h-8'
               value={speciality}
               onChange={(e) => setSpeciality(e.target.value)}>
               <option  value="">Select Specialty</option>
@@ -168,8 +168,8 @@ const AddDoctor = () => {
                 options={options}
                 isMulti
                 value={options.filter(option => availableDays.includes(option.value))}
-                 onChange={selectedOptions => setAvailableDays(selectedOptions.map(option => option.value))}
-                 className='h-10  outline-gray-300 rounded-sm  '
+                onChange={selectedOptions => setAvailableDays(selectedOptions.map(option => option.value))}
+                className='h-1 outline-gray-300 rounded-sm'
               />
           <label htmlFor='available'>Is Available:</label>
           <input 

@@ -2,37 +2,35 @@ import mongoose from 'mongoose';
 
 
 const allBookingSchema = new mongoose.Schema({
-    Name: {
+    name: {
         type: String,
         required: true
     },
-    Contact: {
+    mobile: {
         type: Number,
         required: true
     },
-    Doctor: {
-        // type: mongoose.Schema.Types.ObjectId,
-        // ref: 'Doctor',
+    doctor: {
         type: String,
         required: true
     },
-    BookingDate: {
+    bookingDate: {
         type: Date,
         required: true
     },
-    Gender: {
+    gender: {
         type: String,
         required: true
     },
-    Age: {
+    age: {
         type: String,
         required: true
     },
-    Address: {
+    address: {
         type: String,
         required: true  
     },
-    BookingStatus: {
+    bookingStatus: {
         type: String,
         required: true,
         enum: ['pending','confirmed','cancelled'],

@@ -25,14 +25,14 @@ const AddOtPackage = () => {
       formData.append('price', price);
       formData.append('remarks', remarks);
 
-      for(let d of formData) {
-        console.log(d[0] + ':' + d[1]);  // Debugging purposes for form data
-      }
+      // for(let d of formData) {
+      //   console.log(d[0] + ':' + d[1]);  // Debugging purposes for form data
+      // }
 
       await new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve();
-        }, 2000); // Simulating network delay
+        }, 2000);
       });
   
       const {data} = await axios.post(backendUrl+ '/api/admin/add-ot-package', {

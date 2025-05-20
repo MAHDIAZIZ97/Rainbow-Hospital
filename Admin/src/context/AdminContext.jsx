@@ -12,7 +12,7 @@ const adminContextProvider  = (props) => {
     const [staffs,setStaffs] = useState([]);
     const [doctors,setDoctors] = useState([]);
     const [notices, setNotices] = useState([]);
-    const [otPackages, setOtpackages] = useState([]);
+    const [otPackages, setOtPackages] = useState([]);
     const [healthPackages, setHealthPackages] = useState([]);
     
     //console.log(backendUrl); // for testing backendUrl
@@ -50,10 +50,9 @@ const adminContextProvider  = (props) => {
 
     const getAllNotices = async () => {
             try {
-                const { data } = await axios.post(backendUrl + '/api/admin/all-notices', {headers: {aToken}});
+                const { data } = await axios.post(backendUrl + '/api/admin/all-notices',{}, {headers: {aToken}});
                 if(data.success){
-                    setNotices(data.notices); //notices is the name of the collection as well as state variable
-                    // console.log(data.notices);
+                    setNotices(data.notices);
                 }
                 else{
                     toast.error(data.message);
@@ -85,7 +84,7 @@ const adminContextProvider  = (props) => {
         try {
             const { data } = await axios.post(backendUrl + '/api/admin/all-ot-packages', {}, {headers: {aToken}});
             if(data.success){
-                setOtpackages(data.otPackages); //otPackages is the name of the collection as well as state variable
+                setOtPackages(data.otPackages);
             }
             else{
                 toast.error(data.message);

@@ -8,19 +8,27 @@ import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
 import {assets} from '../assets/assets'
 import { useNavigate } from 'react-router-dom';
+import { Grid } from '@mui/material';
 
 export default function DocCard({name,speciality,degree,image,exp,available}) {
   const navigate = useNavigate();
   
   const handleBookNow = ()  => {
       navigate(`/book-appointment/${name}`);
+      window.scrollTo(0,0);
   };
+
+  const viewDetails = () => {
+      navigate(`/doctor-details/:id`)
+  }
   return (
     <Card
      sx={{ 
-    maxWidth: 345,
-    
+    padding: 2,
+    width: { xs: 300, sm: 200, md: 260 },
+    height: {xs: 500, sm:400, md:450}
   }}>
+ 
       <CardActionArea>
         <CardMedia
           component="img"
@@ -49,6 +57,9 @@ export default function DocCard({name,speciality,degree,image,exp,available}) {
       <CardActions>
         <Button size="small" color="primary" onClick={() => handleBookNow()}>
           Book Now
+        </Button>
+        <Button size="small" color="success" onClick={() => viewDetails()}>
+          View Details
         </Button>
       </CardActions>
     </Card>

@@ -51,7 +51,7 @@ const Login = () => {
           }
         }
        catch (error) {
-         toast.error('Invalid Credentials');
+         toast.error('Invalid Credentials.');
       }
     }
    

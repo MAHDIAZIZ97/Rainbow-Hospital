@@ -8,6 +8,7 @@ const AddNotice = () => {
 
 const [name, setName] = useState('');
 const [file, setFile] = useState(null);
+const [isSubmitting, setIsSubmitting] = useState(false);
 
 const {aToken, backendUrl} = useContext(adminContext);
 
@@ -22,15 +23,18 @@ const handleFileChange = (e) => {
 
 const submitHandler = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     try {
       const formData = new FormData();
       formData.append('name', name);
       formData.append('file', file); 
 
-      // for(let a in formData) {
-      //   console.log(a[0] + ':' + a[1]);
-      // }
-      
+
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve();
+        }, 1000);
+      });
      const { data } =  await axios.post(`${backendUrl}/api/admin/add-notice`, formData, {headers: {aToken}});
       if (data.success) {
         toast.success('Notice added successfully');
@@ -43,6 +47,9 @@ const submitHandler = async (e) => {
     } catch (error) {
       console.error('Error:', error);
       toast.error(error.message);
+    }
+    finally {
+      setIsSubmitting(false);
     }
 }
   
@@ -78,7 +85,9 @@ const submitHandler = async (e) => {
                 />
         </div>
         <div className='flex justify-center'>
-        <button className='mt-2 bg-[#035d67] px-3 py-1 rounded-lg text-white cursor-pointer active:text-[#035d67] active:bg-white border-1 border-[#035d67] transition-all duration-100 ease-in '   type='submit'>Submit</button>
+        <button className='mt-2 bg-[#035d67] px-3 py-1 rounded-lg text-white cursor-pointer active:text-[#035d67] active:bg-white border-1 border-[#035d67] transition-all duration-100 ease-in '   type='submit'>
+          {isSubmitting ? <img  src='/loader.gif' alt='Loading...' width="42"/> : 'Submit'}
+        </button>
         </div>
         
       </div>

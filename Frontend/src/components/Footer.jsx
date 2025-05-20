@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { FaFacebookSquare } from "react-icons/fa";
 import { FaSquareInstagram } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
@@ -46,12 +46,10 @@ const Footer = () => {
            © 2025 All Rights Reserved by Rainbow Hospital & Diagnostic Service
         </div>
         <div className='flex gap-2'>
-        <FaFacebookSquare />
-        <FaSquareInstagram />
-        <IoLogoYoutube />
-        <FaLinkedin />
-        <FaSquareXTwitter />
-        
+        <a href='https://www.facebook.com/rainbowuluberia' target='_blank'><FaFacebookSquare /></a>
+        <a href='https://www.instagram.com/rainbowuluberia/' target='_blank'><FaSquareInstagram /></a>
+        <a href='https://www.youtube.com/@rainbowhospitaluluberia' target='_blank'><IoLogoYoutube /></a>
+        <a href='https://www.linkedin.com/company/105783686/admin/dashboard/' target='_blank'><FaLinkedin /></a>
         </div>
       </div>
       <div className='text-center mt-2  py-2'>

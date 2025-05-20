@@ -1,6 +1,6 @@
 import React,{useContext, useState} from 'react'
 import Login from './pages/Login'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { adminContext } from './context/AdminContext';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
@@ -22,10 +22,10 @@ import ChangePassword from './pages/Admin/ChangePassword';
 import NotFound from './pages/NotFound';
 import NoticeList from './pages/Admin/NoticeList';
 import { StaffContext } from './context/StaffContext';
-import EditStaff from './pages/Admin/EditStaff';
-import EditDoctor from './pages/Admin/EditDoctor';
-import EditOtPackage from './pages/Admin/EditOtPackage';
-import EditHealthPackage from './pages/Admin/EditHealthPackage';
+import UpdateHealthPackage from './pages/Admin/UpdateHealthPackage';
+import UpdateOtPackage from './pages/Admin/UpdateOtPackage';
+import UpdateDoctor from './pages/Admin/UpdateDoctor';
+import UpdateStaff from './pages/Admin/UpdateStaff';
 
 
 const App = () => {
@@ -38,14 +38,16 @@ const App = () => {
   const {aToken} = useContext(adminContext);
   const {sToken} = useContext(StaffContext);
   return aToken || sToken ? (
-    <div className='dark:bg-[var(--dark-theme)]'>
+    <div className='dark:bg-[var(--dark-theme)] '>
       <ToastContainer />
       <Navbar />
-      <div className = 'flex items-start gap-x-3  h-screen '>
-        
-      {
+      <div className = 'flex items-start gap-x-3  h-screen relative '>
+        <div>
+        {
         isOpen ? <Sidebar/> : null
       }
+        </div>
+      
         
          <CgMenuRightAlt className='text-2xl min-w-6 mx-1 cursor-pointer' onClick={toggleMenu} />
       
@@ -58,6 +60,7 @@ const App = () => {
         <Route path='/add-ot-package' element= {<AddOtPackage />}/>
         <Route path='/add-staff' element= {<AddStaff />}/>
         <Route path='/all-appointments' element= {<AllAppointments />}/>
+        <Route path='/all-enquiry' element= {<AllAppointments />}/>
         <Route path='/doctor-list' element= {<DoctorList />}/>
         <Route path='/health-package-list' element= {<HealthPackageList />}/>
         <Route path='/ot-package-list' element= {<OtPackageList />}/>
@@ -65,10 +68,10 @@ const App = () => {
         <Route path='/staff-list' element= {<StaffList />}/>
         <Route path='/notice-list' element= {<NoticeList />}/>
         <Route path='/change-password' element= {<ChangePassword />}/>
-        <Route path='/edit-staff/:id' element= {<EditStaff />}/>
-        <Route path='/edit-doctor/:id' element= {<EditDoctor />}/>
-        <Route path='/edit-ot-package/:id' element= {<EditOtPackage />}/>
-        <Route path='/edit-health-package/:id' element= {<EditHealthPackage />}/>
+        <Route path='/update-staff/:id' element= {<UpdateStaff />}/>
+        <Route path='/update-doctor/:id' element= {<UpdateDoctor />}/>
+        <Route path='/update-ot-package/:id' element= {<UpdateOtPackage />}/>
+        <Route path='/update-health-package/:id' element= {<UpdateHealthPackage />}/>
 
         {/* STAFF ROUTE */}
         <Route path='/staff-dashboard' element= {<SDashboard />}/>

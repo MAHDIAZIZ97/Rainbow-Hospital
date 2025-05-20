@@ -16,7 +16,7 @@ export default function DoctorSlider() {
           const {data} = await axios.get(backendUrl + '/api/user/all-doctors');
           if(data.success){
             setDoctors(data.doctors);
-            console.log(data)
+            //console.log(data)
           }
         } catch (error) {
           console.error('Error:', error);
@@ -49,11 +49,11 @@ export default function DoctorSlider() {
       }}
       style={{paddingBottom: "2.5rem"}}
     >
-      {doctors.slice(0,8).map((doctor, index) => (
+      {doctors.slice(4,12).map((doctor, index) => (
         <SwiperSlide 
             key={doctor._id}>
           <DocCard name={doctor.name} speciality={doctor.speciality} image={doctor.image}
-          degree={doctor.degree} exp={doctor.experience} />
+          degree={doctor.degree} exp={doctor.experience} available={doctor.availableDays.toUpperCase()}/>
         </SwiperSlide>
       ))}
     </Swiper>
